@@ -29,7 +29,6 @@ public class Blob extends Entity {
     public void update (float deltaT) {
         calculatePosition();
         d -= v * deltaT;
-        Assets.getAssets().pointsGained.loop();
     }
 
     public void draw () {

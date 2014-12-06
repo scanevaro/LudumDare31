@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.jam.entities.Blob;
 import com.deeep.jam.entities.BlobManager;
 import com.deeep.jam.entities.Globe;
+import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
 
 import java.util.Random;
@@ -54,6 +55,7 @@ public class World {
                     //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
                     //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
                     blobManager.blobs.add(new Blob(300, (float) Math.PI+ 0.5f, 80));
+                    Assets.getAssets().pointsGained.play();
                     return;
                 } else {
                     System.out.println("Not same...!");
