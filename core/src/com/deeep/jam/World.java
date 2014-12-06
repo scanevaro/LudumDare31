@@ -27,9 +27,14 @@ public class World {
     public static BlobManager blobManager;
 
     private int damageTimer;
+    private float
 
     public static Sprite background;
     public static Sprite warningOverlay;
+
+    /**
+     * ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง gimme my memes ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง
+     */
 
     public World() {
         globe = new Globe();
