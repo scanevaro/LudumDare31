@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class Difficulty {
     public int score = 0;
-    public int multiplier;
-    public int kills;
+    public int multiplier = 1;
+    public int kills = 0;
     public int consecutive;
     public int killsToDifficult = 1;
     private int maxEnemiesAlive = 1;
@@ -37,7 +37,9 @@ public class Difficulty {
 
     public void kill(Globe globe) {
         consecutive++;
-        multiplier++;
+        if(consecutive%10==0)
+            multiplier++;
+        kills++;
         score += multiplier * 10;
         enemiesAlive--;
         calculateDifficulty(globe);

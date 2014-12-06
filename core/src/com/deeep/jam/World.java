@@ -3,6 +3,7 @@ package com.deeep.jam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,6 +23,7 @@ import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
  */
 public class World {
     public static int score = 0;
+    private BitmapFont bitmapFont;
 
     public static Globe globe;
     public static ShapeRenderer sR = Core.shapeRenderer;
@@ -39,6 +41,8 @@ public class World {
      */
 
     public World() {
+        Assets.getAssets().loadBitmapFont();
+        bitmapFont = Assets.getAssets().getBitmapFont();
         difficulty = new Difficulty();
         globe = new Globe();
         blobManager = new BlobManager();
@@ -71,12 +75,12 @@ public class World {
                     if (color.equals(blob.color)) {
                         difficulty.kill(globe);
                         Assets.getAssets().pointsGained.play();
-                        return;
+                        break;
                     } else {
                         difficulty.playerHit(globe);
                         damageTimer += 100;
                         Assets.getAssets().incorrect.play();
-                        return;
+                        break;
                     }
                 }
             }
@@ -94,6 +98,12 @@ public class World {
         batch.begin();
         background.draw(batch);
         globe.draw(batch);
+        bitmapFont.setScale(1);
+        bitmapFont.draw(batch, "Score: " + difficulty.score, 10, bitmapFont.getLineHeight());
+        bitmapFont.setScale(0.6f);
+        bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 5, 512 - 5);
+        bitmapFont.setScale(0.4f);
+        bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512-25);
         batch.end();
         sR.setAutoShapeType(true);
         sR.begin();
