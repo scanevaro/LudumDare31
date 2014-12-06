@@ -1,6 +1,7 @@
 package com.deeep.jam.input;
 
 import com.badlogic.gdx.InputProcessor;
+import com.deeep.jam.screens.AbstractGame;
 import com.deeep.jam.screens.GameScreen;
 
 /**
@@ -43,20 +44,39 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+        if (screenY > AbstractGame.VIRTUAL_HEIGHT / 2) {
+            if (this.screenX > screenX)
+                screen.world.globe.angleFacing += (float) screenX / 2000;
+            else if (this.screenX < screenX)
+                screen.world.globe.angleFacing -= (float) screenX / 2000;
+        } else {
+            if (this.screenX > screenX)
+                screen.world.globe.angleFacing -= (float) screenX / 2000;
+            else if (this.screenX < screenX)
+                screen.world.globe.angleFacing += (float) screenX / 2000;
+        }
+
+        this.screenX = screenX;
+        this.screenY = screenY;
+
         return false;
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
 
-        if (this.screenX > screenX /*&& this.screenY >= screenY*/)
-            screen.world.globe.angleFacing -= (float) screenX / 2000;
-        else if (this.screenX < screenX /*&& this.screenY < screenY*/)
-            screen.world.globe.angleFacing += (float) screenX / 2000;
-//        else if (this.screenX < screenX /*&& this.screenY < screenY*/)
-//            screen.world.globe.angleFacing += (float) screenX / 500;
-//        else if (this.screenX < screenX /*&& this.screenY > screenY*/)
-//            screen.world.globe.angleFacing += (float) screenX / 500;
+        if (screenY > AbstractGame.VIRTUAL_HEIGHT / 2) {
+            if (this.screenX > screenX)
+                screen.world.globe.angleFacing += (float) screenX / 2000;
+            else if (this.screenX < screenX)
+                screen.world.globe.angleFacing -= (float) screenX / 2000;
+        } else {
+            if (this.screenX > screenX)
+                screen.world.globe.angleFacing -= (float) screenX / 2000;
+            else if (this.screenX < screenX)
+                screen.world.globe.angleFacing += (float) screenX / 2000;
+        }
 
         this.screenX = screenX;
         this.screenY = screenY;
