@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * Created by E on 12/6/2014.
  */
 public class Entity {
-    protected Sprite sprite;
     public float x, y;
 
     public Entity() {
@@ -25,10 +24,7 @@ public class Entity {
     }
 
     public void draw(SpriteBatch spriteBatch) {
-        if (sprite != null) {
-            sprite.setPosition(x, y);
-            sprite.draw(spriteBatch);
-        }
+
     }
 
 }

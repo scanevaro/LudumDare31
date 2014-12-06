@@ -2,10 +2,31 @@ TextureAtlas.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+Untitled
+  rotate: false
+  xy: 260, 133
+  size: 1, 1
+  orig: 64, 64
+  offset: 0, 63
+  index: 0
 badlogic
   rotate: false
   xy: 2, 2
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
+  index: -1
+empty
+  rotate: false
+  xy: 260, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+wood
+  rotate: false
+  xy: 260, 68
+  size: 64, 63
+  orig: 64, 64
+  offset: 0, 1
   index: -1
