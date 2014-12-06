@@ -29,8 +29,6 @@ public class Core extends AbstractGame {
         shapeRenderer = new ShapeRenderer();
 
         setScreen(new GameScreen());
-
-        Gdx.input.setCursorImage(new Pixmap(Gdx.files.internal("kappa.png")), 0, 0);
     }
 
     /**
