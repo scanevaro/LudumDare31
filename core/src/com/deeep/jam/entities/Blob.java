@@ -1,33 +1,39 @@
 package com.deeep.jam.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.deeep.jam.screens.Core;
+import com.deeep.jam.World;
+
+import static com.deeep.jam.World.*;
 
 /**
  * Created by Andreas on 12/6/2014.
  */
 public class Blob extends Entity {
 
-    public Blob (){
-        this.x = 0F;
-        this.y = 0F;
-    }
+    //Theta ALWAYS in degrees
+    public float v, d, theta;
 
-    public Blob (float x, float y){
-        this.x = x;
-        this.y = y;
+    public Blob (float d, float theta, float v){
+        this.v = v;
+        this.d = d;
+        this.theta = theta;
+        calculatePosition();
     }
 
     @Override
     public void update (float deltaT) {
-
+        calculatePosition();
     }
 
-    @Override
-    public void draw (SpriteBatch spriteBatch) {
-        ShapeRenderer sR = Core.shapeRenderer;
+    public void draw () {
+        sR.setColor(Color.RED);
         sR.circle(x, y, 5F);
+    }
+
+    private void calculatePosition() {
+        x = (float) Math.cos(Math.toRadians(theta)) * d;
+        y = (float) Math.sin(Math.toRadians(theta)) * d;
     }
 
 }

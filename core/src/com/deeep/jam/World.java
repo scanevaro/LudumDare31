@@ -3,8 +3,13 @@ package com.deeep.jam;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.deeep.jam.entities.Blob;
 import com.deeep.jam.entities.BlobManager;
 import com.deeep.jam.entities.Globe;
+import com.deeep.jam.screens.Core;
+
+import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
 
 /**
  * Created by Andreas on 05/12/2014.
@@ -12,6 +17,7 @@ import com.deeep.jam.entities.Globe;
 public class World {
 
     public static Globe globe;
+    public static ShapeRenderer sR = Core.shapeRenderer;
     public static BlobManager blobManager;
 
     public World() {
@@ -20,7 +26,7 @@ public class World {
     }
 
     public void update(float deltaT) {
-        Gdx.input.setCursorImage(PixmapRotater.getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
+        Gdx.input.setCursorImage(getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
     }
@@ -28,8 +34,10 @@ public class World {
     public void draw(SpriteBatch batch) {
         batch.begin();
         globe.draw(batch);
-        blobManager.draw(batch);
         batch.end();
+        sR.begin();
+        blobManager.draw();
+        sR.end();
     }
 
     public void mouseMoved(int x, int y) {
