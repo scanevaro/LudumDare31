@@ -14,7 +14,7 @@ public class Blob extends Entity {
 
     //Theta ALWAYS in degrees
     public float v, d, theta;
-
+    public boolean isDead = false;
     public Color color;
 
     public Blob (float d, float theta, float v){
@@ -29,11 +29,10 @@ public class Blob extends Entity {
     public void update (float deltaT) {
         calculatePosition();
         d -= v * deltaT;
-        Assets.getAssets().pointsGained.loop();
     }
 
     public void draw () {
-        sR.setColor(Color.RED);
+        sR.setColor(color);
         sR.circle(x, y, 5F);
     }
 
@@ -41,6 +40,11 @@ public class Blob extends Entity {
     private void calculatePosition() {
         x = 256+(float) Math.cos(Math.toRadians(theta)) * d;
         y = 256+(float) Math.sin(Math.toRadians(theta)) * d;
+    }
+
+    public void die(){
+        isDead = true;
+        Assets.getAssets().pointsGained.play();
     }
 
 }
