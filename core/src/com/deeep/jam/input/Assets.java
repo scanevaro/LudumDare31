@@ -1,6 +1,7 @@
 package com.deeep.jam.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -16,7 +17,6 @@ import com.deeep.jam.Logger;
  * User: Elmar
  * Date: 9/29/13
  * Time: 10:17 AM
- * To change this template use File | Settings | File Templates.
  */
 public class Assets {
     /**
@@ -45,6 +45,8 @@ public class Assets {
     private BitmapFont font;
     private Pixmap pixmap;
 
+
+    public Sound pointsGained;
     /**
      * Find a use for this, if there is any TODO
      */
@@ -82,7 +84,14 @@ public class Assets {
             textureAtlas = new TextureAtlas(Gdx.files.internal("TextureAtlas.txt"));
             logger.system(Assets.class, "All assets have been loaded");
             loaded = true;
+
+            loadSounds();
         }
+    }
+
+    private void loadSounds() {
+        //༼༼༼༼༼ຈຈຈຈຈل͜ل͜ل͜ل͜ل͜ຈຈຈຈຈ༽༽༽༽༽ﾉﾉﾉﾉﾉ
+        pointsGained = Gdx.audio.newSound(Gdx.files.internal("sound/blub.mp3"));
     }
 
     public Sprite getBlankSprite() {

@@ -3,6 +3,7 @@ package com.deeep.jam.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.jam.World;
+import com.deeep.jam.input.Assets;
 
 import static com.deeep.jam.World.*;
 
@@ -28,6 +29,7 @@ public class Blob extends Entity {
     public void update (float deltaT) {
         calculatePosition();
         d -= v * deltaT;
+        Assets.getAssets().pointsGained.loop();
     }
 
     public void draw () {
