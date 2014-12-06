@@ -44,6 +44,22 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+        if (screenY > AbstractGame.VIRTUAL_HEIGHT / 2) {
+            if (this.screenX > screenX)
+                screen.world.globe.angleFacing += (float) screenX / 2000;
+            else if (this.screenX < screenX)
+                screen.world.globe.angleFacing -= (float) screenX / 2000;
+        } else {
+            if (this.screenX > screenX)
+                screen.world.globe.angleFacing -= (float) screenX / 2000;
+            else if (this.screenX < screenX)
+                screen.world.globe.angleFacing += (float) screenX / 2000;
+        }
+
+        this.screenX = screenX;
+        this.screenY = screenY;
+
         return false;
     }
 
