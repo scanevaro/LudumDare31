@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.deeep.jam.entities.Blob;
 import com.deeep.jam.entities.BlobManager;
 import com.deeep.jam.entities.Globe;
 import com.deeep.jam.screens.Core;
@@ -35,17 +34,15 @@ public class World {
         batch.begin();
         globe.draw(batch);
         batch.end();
+        sR.setAutoShapeType(true);
         sR.begin();
         blobManager.draw();
         sR.end();
     }
 
-    public void mouseMoved(int x, int y) {
-
-    }
-
     /**
      * Calculates the angle of the mouse relative to the center of the screen
+     *
      * @return the angle in radians
      */
     public float getMouseAngle() {
