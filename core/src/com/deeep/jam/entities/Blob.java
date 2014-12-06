@@ -14,11 +14,14 @@ public class Blob extends Entity {
     //Theta ALWAYS in degrees
     public float v, d, theta;
 
+    public Color color;
+
     public Blob (float d, float theta, float v){
         this.v = v;
         this.d = d;
         this.theta = theta;
         calculatePosition();
+        color = Color.RED;
     }
 
     @Override

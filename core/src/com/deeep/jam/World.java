@@ -21,7 +21,7 @@ public class World {
     public static ShapeRenderer sR = Core.shapeRenderer;
     public static BlobManager blobManager;
 
-    private Sprite background;
+    public static Sprite background;
 
     public World() {
         globe = new Globe();
