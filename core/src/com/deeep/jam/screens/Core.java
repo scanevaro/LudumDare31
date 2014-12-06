@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.deeep.jam.World;
 import com.deeep.jam.entities.Globe;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.sequencer.FormulaTypes;
@@ -27,7 +28,7 @@ public class Core extends AbstractGame {
     SpriteBatch batch;
     Sprite img;
     Sequencer sequencer;
-    Globe globe;
+    World world;
     /**
      * Called when the {@link com.badlogic.gdx.Application} is first created.
      */
@@ -40,7 +41,7 @@ public class Core extends AbstractGame {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         img = new Sprite(Assets.getAssets().getRegion("badlogic"));
-        globe = new Globe();
+        world = new World();
     }
 
     /**
@@ -53,18 +54,32 @@ public class Core extends AbstractGame {
     }
 
     /**
-     * This should in the future render a background
+     * Render & Update
      */
     @Override
     public void render(float deltaTime) {
-        sequencer.update(deltaTime);
+        draw();
+        update(deltaTime);
+    }
+
+    public void draw() {
+        batch.begin();
+        /** */
+        /** */
+        /** */
+        batch.draw(img, 0, 0);
+        world.draw(batch);
         Gdx.graphics.setTitle("FPS: " + Gdx.graphics.getFramesPerSecond());
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(img, 0, 0);
-        globe.draw(batch);
+        /** */
+        /** */
+        /** */
         batch.end();
+    }
 
+    public void update(float deltaT){
+        sequencer.update(deltaT);
+        world.update(deltaT);
     }
 }

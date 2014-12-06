@@ -93,7 +93,6 @@ public class Globe extends Entity {
     @Override
     public void update(float deltaT) {
         super.update(deltaT);
-
     }
 
     static class Region {
