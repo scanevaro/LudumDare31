@@ -51,6 +51,7 @@ public class Globe extends Entity {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             angleFacing -= Gdx.graphics.getDeltaTime() / 2;
         }
+
     }
 
     @Override
