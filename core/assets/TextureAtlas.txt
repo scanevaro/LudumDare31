@@ -2,31 +2,80 @@ TextureAtlas.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Untitled
-  rotate: false
-  xy: 260, 133
-  size: 1, 1
-  orig: 64, 64
-  offset: 0, 63
-  index: 0
-badlogic
+angel
   rotate: false
   xy: 2, 2
-  size: 256, 256
-  orig: 256, 256
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-empty
+armor
   rotate: false
-  xy: 260, 2
-  size: 64, 64
-  orig: 64, 64
+  xy: 104, 2
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-wood
+explosion
   rotate: false
-  xy: 260, 68
-  size: 64, 63
-  orig: 64, 64
-  offset: 0, 1
+  xy: 2, 104
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+freeze
+  rotate: false
+  xy: 104, 104
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+heal
+  rotate: false
+  xy: 2, 206
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+kappa
+  rotate: false
+  xy: 206, 2
+  size: 28, 31
+  orig: 32, 32
+  offset: 1, 1
+  index: -1
+multiplier
+  rotate: false
+  xy: 104, 206
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+score
+  rotate: false
+  xy: 2, 308
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+shockwave
+  rotate: false
+  xy: 2, 410
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+speedUp
+  rotate: false
+  xy: 104, 308
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+speeddown
+  rotate: false
+  xy: 104, 410
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
   index: -1

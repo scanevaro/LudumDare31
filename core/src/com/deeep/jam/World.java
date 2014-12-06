@@ -55,7 +55,7 @@ public class World {
     public void update(float deltaT) {
         backgroundRotation = -globe.angleFacing;
         background.setRotation((float) Math.toDegrees(backgroundRotation));
-        //Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
+        Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
         Random random = new Random();
