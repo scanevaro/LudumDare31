@@ -48,17 +48,18 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+
+        if (this.screenX > screenX /*&& this.screenY >= screenY*/)
+            screen.world.globe.angleFacing -= (float) screenX / 2000;
+        else if (this.screenX < screenX /*&& this.screenY < screenY*/)
+            screen.world.globe.angleFacing += (float) screenX / 2000;
+//        else if (this.screenX < screenX /*&& this.screenY < screenY*/)
+//            screen.world.globe.angleFacing += (float) screenX / 500;
+//        else if (this.screenX < screenX /*&& this.screenY > screenY*/)
+//            screen.world.globe.angleFacing += (float) screenX / 500;
+
         this.screenX = screenX;
         this.screenY = screenY;
-
-//        if (this.screenX > screenX && this.screenY > screenY)
-//            screen.world.globe.angleFacing += (float) screenX / 500;
-//        else if (this.screenX > screenX && this.screenY < screenY)
-//            screen.world.globe.angleFacing += (float) screenX / 500;
-//        else if (this.screenX < screenX && this.screenY < screenY)
-//            screen.world.globe.angleFacing += (float) screenX / 500;
-//        else if (this.screenX < screenX && this.screenY > screenY)
-//            screen.world.globe.angleFacing += (float) screenX / 500;
 
         return false;
     }
