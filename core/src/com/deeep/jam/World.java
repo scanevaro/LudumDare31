@@ -17,14 +17,19 @@ public class World {
         blobManager = new BlobManager();
     }
 
-    public void update(float deltaT){
+    public void update(float deltaT) {
         globe.update(deltaT);
         blobManager.update(deltaT);
     }
 
-    public void draw(SpriteBatch spriteBatch){
-        globe.draw(spriteBatch);
-        blobManager.draw(spriteBatch);
+    public void draw(SpriteBatch batch) {
+        batch.begin();
+        globe.draw(batch);
+        blobManager.draw(batch);
+        batch.end();
     }
 
+    public void mouseMoved(int x, int y) {
+
+    }
 }
