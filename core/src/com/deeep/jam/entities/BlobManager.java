@@ -17,11 +17,16 @@ public class BlobManager {
             ListIterator iT = blobs.listIterator();
             while (iT.hasNext()){
                 Blob blob = (Blob) iT.next();
+                blob.update(deltaT);
             }
         }
 
         public void draw(SpriteBatch spriteBatch){
-
+            ListIterator iT = blobs.listIterator();
+            while (iT.hasNext()){
+                Blob blob = (Blob) iT.next();
+                blob.draw(spriteBatch);
+            }
         }
 
         public void remove(int id){
@@ -31,6 +36,5 @@ public class BlobManager {
         public void remove(Entity e){
 
         }
-
 
 }
