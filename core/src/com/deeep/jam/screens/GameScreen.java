@@ -5,7 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.jam.Logger;
 import com.deeep.jam.World;
-import com.deeep.jam.input.GameInputListener;
+import com.deeep.jam.input.GameInputProcessor;
 
 /**
  * Created by scanevaro on 05/12/2014.
@@ -14,7 +14,7 @@ public class GameScreen implements Screen {
 
     private Logger logger;
     private SpriteBatch batch;
-    private World world;
+    public World world;
 
     @Override
     public void render(float delta) {
@@ -31,11 +31,7 @@ public class GameScreen implements Screen {
         batch = ((Core) Gdx.app.getApplicationListener()).batch;
         world = new World();
 
-        Gdx.input.setInputProcessor(new GameInputListener(this));
-    }
-
-    public void mouseMoved(int x, int y) {
-        world.mouseMoved(x, y);
+        Gdx.input.setInputProcessor(new GameInputProcessor(this));
     }
 
     @Override

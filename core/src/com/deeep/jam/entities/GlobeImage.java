@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class GlobeImage {
     private ArrayList<Region> regions = new ArrayList<Region>();
-    Pixmap pixmap;
-    Pixmap blurredImage;
+    private Pixmap pixmap;
+    private Pixmap blurredImage;
     private Sprite sprite;
     private float scale;
     //width and height of pixmap
@@ -24,8 +24,8 @@ public class GlobeImage {
 
     public GlobeImage(float globeSize, float scale) {
         this.globeSize = globeSize;
-        this.width = 512;
-        this.height = 512;
+        this.width = 256;
+        this.height = 256;
         this.scale = scale;
         pixmap = new Pixmap(width, height, Pixmap.Format.RGBA4444);
         blurredImage = new Pixmap(width, height, Pixmap.Format.RGBA4444);
@@ -42,13 +42,13 @@ public class GlobeImage {
         calculatePixmap();
     }
 
-    public void clear(){
+    public void clear() {
         regions.clear();
     }
 
     public void draw(SpriteBatch spriteBatch, int x, int y, float rotation) {
         sprite.setScale(scale, scale);
-        sprite.setOrigin(x, y);
+        sprite.setCenter(x, y);
         sprite.setRotation(rotation);
         sprite.draw(spriteBatch);
     }
@@ -76,7 +76,7 @@ public class GlobeImage {
     private void calculatePixmap() {
         float tempX, tempY;
         float angle, distance;
-        if(regions.size() == 0)
+        if (regions.size() == 0)
             return;
         float degreesPerPart = 360 / regions.size();
         for (int x = -0; x < width; x++) {
@@ -96,7 +96,7 @@ public class GlobeImage {
                         break;
                     }
                 }
-                pixmap.drawPixel((int) tempX + width/2, (int) tempY + height/2);
+                pixmap.drawPixel((int) tempX + width / 2, (int) tempY + height / 2);
 
             }
         }
