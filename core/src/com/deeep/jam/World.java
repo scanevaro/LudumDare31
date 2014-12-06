@@ -2,6 +2,8 @@ package com.deeep.jam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.jam.entities.BlobManager;
@@ -19,9 +21,15 @@ public class World {
     public static ShapeRenderer sR = Core.shapeRenderer;
     public static BlobManager blobManager;
 
+    private Sprite background;
+
     public World() {
         globe = new Globe();
         blobManager = new BlobManager();
+        background = new Sprite(new Texture(Gdx.files.internal("background.png")));
+        background.setX(-110F);
+        background.setY(-110F);
+        background.setRotation(90F);
     }
 
     public void update(float deltaT) {
@@ -32,6 +40,7 @@ public class World {
 
     public void draw(SpriteBatch batch) {
         batch.begin();
+        background.draw(batch);
         globe.draw(batch);
         batch.end();
         sR.setAutoShapeType(true);
