@@ -26,16 +26,21 @@ public class World {
     public static ShapeRenderer sR = Core.shapeRenderer;
     public static BlobManager blobManager;
 
+    private int damageTimer;
+
     public static Sprite background;
+    public static Sprite warningOverlay;
 
     public World() {
         globe = new Globe();
         blobManager = new BlobManager();
         background = new Sprite(new Texture(Gdx.files.internal("background.png")));
+        warningOverlay = new Sprite(new Texture(Gdx.files.internal("warning_overlay.png")));
         background.setX(-110F);
         background.setY(-110F);
         background.setRotation(90F);
         blobManager.blobs.add(new Blob(300, (float) 0, 80));
+        damageTimer = 0;
     }
 
     public void update(float deltaT) {
@@ -50,6 +55,7 @@ public class World {
             if (color == null) {
                 //do nothing not colliding
             } else {
+                System.out.println(color + " rotation: " + Math.toDegrees(blob.theta));
                 if (color.equals(blob.color)) {
                     System.out.println("Same!");
                     blobManager.blobs.remove(blob);
@@ -63,6 +69,7 @@ public class World {
                     blobManager.blobs.remove(blob);
                     blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
                     //blobManager.blobs.add(new Blob(300, (float) 0, 80));
+                    damageTimer = 50;
                     return;
                 }
             }
@@ -78,6 +85,13 @@ public class World {
         sR.begin();
         blobManager.draw();
         sR.end();
+        batch.begin();
+        if(damageTimer > 0) {
+            damageTimer --;
+            warningOverlay.setAlpha(0.3F + damageTimer * 0.01F);
+            warningOverlay.draw(batch);
+        }
+        batch.end();
     }
 
     /**
