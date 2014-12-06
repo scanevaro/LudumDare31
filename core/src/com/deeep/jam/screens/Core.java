@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.sequencer.FormulaTypes;
 import com.deeep.jam.sequencer.Sequence;
@@ -16,6 +17,9 @@ import com.deeep.jam.sequencer.Sequencer;
  * This class is the entry point to the game
  */
 public class Core extends AbstractGame {
+
+    public static ShapeRenderer shapeRenderer;
+
     /**
      * Batch
      */
@@ -33,6 +37,7 @@ public class Core extends AbstractGame {
         sequencer.addSequence(new Sequence(new FormulaTypes.Linear(1f,1)));
         sequencer.addSequence(new Sequence(new FormulaTypes.Linear(1f,0.1f)));
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         img = new Sprite(Assets.getAssets().getRegion("badlogic"));
     }
 
