@@ -1,6 +1,8 @@
 package com.deeep.jam.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.jam.World;
 
 /**
@@ -8,20 +10,22 @@ import com.deeep.jam.World;
  */
 public class GameScreen implements Screen {
 
-    private AbstractGame game;
+    private SpriteBatch batch;
     private World world;
-
-    public GameScreen(AbstractGame game) {
-        this.game = game;
-    }
 
     @Override
     public void render(float delta) {
+        /** updates */
+        world.update(delta);
+
+        /** draws */
+        world.draw(batch);
     }
 
     @Override
     public void show() {
-
+        batch = ((Core) Gdx.app.getApplicationListener()).batch;
+        world = new World();
     }
 
     @Override

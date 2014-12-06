@@ -3,7 +3,6 @@ package com.deeep.jam;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.jam.entities.Blob;
 import com.deeep.jam.entities.Globe;
-import com.deeep.jam.screens.AbstractGame;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -21,22 +20,23 @@ public class World {
         blobs = new ArrayList<Blob>();
     }
 
-    public void update(float deltaT){
+    public void update(float deltaT) {
         globe.update(deltaT);
         ListIterator iT = blobs.listIterator();
-        while(iT.hasNext()){
+        while (iT.hasNext()) {
             Blob b = (Blob) iT.next();
             b.update(deltaT);
         }
     }
 
-    public void draw(SpriteBatch spriteBatch){
-        globe.draw(spriteBatch);
+    public void draw(SpriteBatch batch) {
+        batch.begin();
+        globe.draw(batch);
         ListIterator iT = blobs.listIterator();
-        while(iT.hasNext()){
+        while (iT.hasNext()) {
             Blob b = (Blob) iT.next();
-            b.draw(spriteBatch);
+            b.draw(batch);
         }
+        batch.end();
     }
-
 }
