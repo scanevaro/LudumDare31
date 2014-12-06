@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.deeep.jam.entities.Blob;
-import com.deeep.jam.entities.BlobManager;
-import com.deeep.jam.entities.Difficulty;
-import com.deeep.jam.entities.Globe;
+import com.deeep.jam.entities.*;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
 
@@ -23,6 +20,7 @@ import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
  */
 public class World {
     public static int score = 0;
+    private Roulette roulette;
     private BitmapFont bitmapFont;
 
     public static Globe globe;
@@ -53,6 +51,7 @@ public class World {
         background.setRotation(90F);
         damageTimer = 0;
         difficulty.spawn(globe);
+        roulette = new Roulette();
 
     }
 
@@ -98,6 +97,7 @@ public class World {
         batch.begin();
         background.draw(batch);
         globe.draw(batch);
+        roulette.draw(batch);
         bitmapFont.setScale(1);
         bitmapFont.draw(batch, "Score: " + difficulty.score, 10, bitmapFont.getLineHeight());
         bitmapFont.setScale(0.6f);
