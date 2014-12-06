@@ -44,7 +44,6 @@ public class Blob extends Entity {
 
     public void die(){
         isDead = true;
-        Assets.getAssets().pointsGained.play();
 
     }
 
