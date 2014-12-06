@@ -6,11 +6,13 @@ import com.deeep.jam.screens.GameScreen;
 /**
  * Created by scanevaro on 06/12/2014.
  */
-public class GameInputListener implements InputProcessor {
+public class GameInputProcessor implements InputProcessor {
 
     private GameScreen screen;
+    private int screenX;
+    private int screenY;
 
-    public GameInputListener(GameScreen screen) {
+    public GameInputProcessor(GameScreen screen) {
         this.screen = screen;
     }
 
@@ -46,7 +48,18 @@ public class GameInputListener implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        screen.mouseMoved(screenX, screenY);
+        this.screenX = screenX;
+        this.screenY = screenY;
+
+//        if (this.screenX > screenX && this.screenY > screenY)
+//            screen.world.globe.angleFacing += (float) screenX / 500;
+//        else if (this.screenX > screenX && this.screenY < screenY)
+//            screen.world.globe.angleFacing += (float) screenX / 500;
+//        else if (this.screenX < screenX && this.screenY < screenY)
+//            screen.world.globe.angleFacing += (float) screenX / 500;
+//        else if (this.screenX < screenX && this.screenY > screenY)
+//            screen.world.globe.angleFacing += (float) screenX / 500;
+
         return false;
     }
 

@@ -28,8 +28,4 @@ public class World {
         blobManager.draw(batch);
         batch.end();
     }
-
-    public void mouseMoved(int x, int y) {
-
-    }
 }
