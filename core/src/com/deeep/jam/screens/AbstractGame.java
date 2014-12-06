@@ -1,7 +1,6 @@
 package com.deeep.jam.screens;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deeep.jam.Logger;
@@ -14,6 +13,9 @@ import com.deeep.jam.Logger;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AbstractGame extends ApplicationAdapter {
+    public static final float VIRTUAL_WIDTH = 512;
+    public static final float VIRTUAL_HEIGHT = 512;
+
     /** Logger instances */
     protected Logger logger = Logger.getInstance();
     /** The screen to work with */
