@@ -45,6 +45,7 @@ public class Assets {
     private Pixmap kappaPixmap;
 
     public Sound pointsGained;
+    public Sound incorrect;
 
     /**
      * Find a use for this, if there is any TODO
@@ -92,6 +93,7 @@ public class Assets {
     private void loadSounds() {
         //༼༼༼༼༼ຈຈຈຈຈل͜ل͜ل͜ل͜ل͜ຈຈຈຈຈ༽༽༽༽༽ﾉﾉﾉﾉﾉ
         pointsGained = Gdx.audio.newSound(Gdx.files.internal("sound/blub.mp3"));
+        incorrect = Gdx.audio.newSound(Gdx.files.internal("sound/knack.mp3"));
     }
 
     public Sprite getBlankSprite() {

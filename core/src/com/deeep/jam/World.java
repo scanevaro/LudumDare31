@@ -70,10 +70,12 @@ public class World {
                     blob.die();
                     if (color.equals(blob.color)) {
                         difficulty.kill(globe);
+                        Assets.getAssets().pointsGained.play();
                         return;
                     } else {
                         difficulty.playerHit(globe);
                         damageTimer += 100;
+                        Assets.getAssets().incorrect.play();
                         return;
                     }
                 }
