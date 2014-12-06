@@ -19,13 +19,23 @@ public class PowerBlob extends Entity{
         switch(r) {
             case 0:
                 //North rectangle
-                x = 12 + random.nextInt(488);
+                x = 24 + random.nextInt(464);
+                y = 280 + random.nextInt(208);
                 break;
             case 1:
+                //East rectangle
+                x = 280 + random.nextInt(208);
+                y = 24 + random.nextInt(464);
                 break;
             case 2:
+                //South rectangle
+                x = 24 + random.nextInt(464);
+                y = 24 + random.nextInt(208);
                 break;
             case 3:
+                x = 24 + random.nextInt(208);
+                y = 24 + random.nextInt(464);
+                //west rectangle
                 break;
             default:
                 break;
