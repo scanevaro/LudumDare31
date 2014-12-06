@@ -2,6 +2,7 @@ package com.deeep.jam.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.jam.input.Assets;
@@ -28,6 +29,8 @@ public class Core extends AbstractGame {
         shapeRenderer = new ShapeRenderer();
 
         setScreen(new GameScreen());
+
+        Gdx.input.setCursorImage(new Pixmap(Gdx.files.internal("kappa.png")), 0, 0);
     }
 
     /**
