@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Elmar
- * Date: 10/1/13
- * Time: 5:26 PM
+ * User: Andreas mememaster420
+ * Date: 69/69/410
+ * Time: 3:60 PM
  * To change this template use File | Settings | File Templates.
  */
 public class Sequencer {
