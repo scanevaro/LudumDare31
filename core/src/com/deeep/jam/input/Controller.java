@@ -1,7 +1,6 @@
 package com.deeep.jam.input;
 
 import com.badlogic.gdx.Gdx;
-import com.deeep.jam.Logger;
 
 import java.util.ArrayList;
 
@@ -15,15 +14,21 @@ import java.util.ArrayList;
  * Can use with any framework.
  */
 public class Controller {
-    /** Arraylist containing all the keys registered */
+    /**
+     * Arraylist containing all the keys registered
+     */
     private ArrayList<RegisteredKey> registeredKeys = new ArrayList<RegisteredKey>();
 
-    /** Not too much here ehh */
+    /**
+     * Not too much here ehh
+     */
     public Controller() {
-        Logger.getInstance().debug(this.getClass(), "Controller initialized");
+//        Logger.getInstance().debug(this.getClass(), "Controller initialized");
     }
 
-    /** Updates all the registered keys */
+    /**
+     * Updates all the registered keys
+     */
     public void update() {
         for (int i = 0, l = registeredKeys.size(); i < l; i++) {
             registeredKeys.get(i).update();
@@ -42,15 +47,25 @@ public class Controller {
         registeredKeys.add(new RegisteredKey(key, inputReactListener, trigger));
     }
 
-    /** Class holding information about the registered key */
+    /**
+     * Class holding information about the registered key
+     */
     class RegisteredKey {
-        /** if the key was previously pressed */
+        /**
+         * if the key was previously pressed
+         */
         boolean pressed = false;
-        /** The key id */
+        /**
+         * The key id
+         */
         int key;
-        /** the event that has to be fired upon trigger */
+        /**
+         * the event that has to be fired upon trigger
+         */
         InputReactListener inputReactListener;
-        /** The trigger level */
+        /**
+         * The trigger level
+         */
         InputReactListener.Event triggerEvent;
 
         /**
@@ -65,7 +80,9 @@ public class Controller {
             this.triggerEvent = trigger;
         }
 
-        /** Updates and checks for the state */
+        /**
+         * Updates and checks for the state
+         */
         public void update() {
             if (Gdx.input.isKeyPressed(key)) {
                 if (triggerEvent == InputReactListener.Event.HOLD) {

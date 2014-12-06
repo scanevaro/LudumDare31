@@ -3,7 +3,6 @@ package com.deeep.jam.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.jam.Logger;
 import com.deeep.jam.World;
 import com.deeep.jam.input.GameInputProcessor;
 
@@ -12,7 +11,7 @@ import com.deeep.jam.input.GameInputProcessor;
  */
 public class GameScreen implements Screen {
 
-    private Logger logger;
+    //    private Logger logger;
     private SpriteBatch batch;
     public World world;
 
@@ -27,7 +26,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        logger = Logger.getInstance();
+//        logger = Logger.getInstance();
         batch = ((Core) Gdx.app.getApplicationListener()).batch;
         world = new World();
 

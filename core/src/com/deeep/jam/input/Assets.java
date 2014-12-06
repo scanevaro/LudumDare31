@@ -2,7 +2,6 @@ package com.deeep.jam.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.deeep.jam.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +32,7 @@ public class Assets {
     /**
      * Logger instance
      */
-    private Logger logger = Logger.getInstance();
+//    private Logger logger = Logger.getInstance();
     /**
      * The texture region for the shape renderer
      */
@@ -44,9 +42,10 @@ public class Assets {
      */
     private BitmapFont font;
     private Pixmap pixmap;
-
+    private Pixmap kappaPixmap;
 
     public Sound pointsGained;
+
     /**
      * Find a use for this, if there is any TODO
      */
@@ -81,8 +80,9 @@ public class Assets {
             blankSprite = new Sprite(new Texture(pixmap));
             font = loadBitmapFont();
 
+            kappaPixmap = new Pixmap(Gdx.files.internal("kappa.png"));
             textureAtlas = new TextureAtlas(Gdx.files.internal("TextureAtlas.txt"));
-            logger.system(Assets.class, "All assets have been loaded");
+//            logger.system(Assets.class, "All assets have been loaded");
             loaded = true;
 
             loadSounds();
@@ -106,7 +106,7 @@ public class Assets {
             pixmap.dispose();
         if (textureAtlas != null)
             textureAtlas.dispose();
-        logger.system(Assets.class, "All assets have been disposed");
+//        logger.system(Assets.class, "All assets have been disposed");
     }
 
     /**
@@ -119,7 +119,7 @@ public class Assets {
 
         TextureRegion textureRegion = textureAtlas.findRegion(name);
         if (textureRegion == null) {
-            logger.error(Assets.class, "Unkown texture requested: " + name);
+//            logger.error(Assets.class, "Unkown texture requested: " + name);
         }
         return textureAtlas.findRegion(name);
     }
@@ -134,7 +134,7 @@ public class Assets {
 
         BitmapFont font = new BitmapFont(Gdx.files.internal("font/font.fnt"), new TextureRegion(texture), false);
         if (font != null) return font;
-        Logger.getInstance().error(this.getClass(), "Couldn't find specified font!");
+//        Logger.getInstance().error(this.getClass(), "Couldn't find specified font!");
         return null;
     }
 
@@ -145,5 +145,9 @@ public class Assets {
      */
     public BitmapFont getBitmapFont() {
         return font;
+    }
+
+    public Pixmap getKappaPixmap() {
+        return kappaPixmap;
     }
 }

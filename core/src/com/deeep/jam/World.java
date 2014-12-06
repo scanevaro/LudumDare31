@@ -2,7 +2,6 @@ package com.deeep.jam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -50,9 +49,9 @@ public class World {
 
     public void update(float deltaT) {
         backgroundRotation += 2F;
-        if(backgroundRotation >= 360) backgroundRotation = 0;
+        if (backgroundRotation >= 360) backgroundRotation = 0;
         background.setRotation(backgroundRotation);
-        Gdx.input.setCursorImage(getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
+        Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
         Random random = new Random();
@@ -66,8 +65,8 @@ public class World {
                 if (color.equals(blob.color)) {
                     System.out.println("Same!");
                     blobManager.blobs.remove(blob);
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40,globe.getGlobeImage().getRandomColor()));
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40,globe.getGlobeImage().getRandomColor()));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat() * Math.PI * 2), 20 + random.nextFloat() * 40, globe.getGlobeImage().getRandomColor()));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat() * Math.PI * 2), 20 + random.nextFloat() * 40, globe.getGlobeImage().getRandomColor()));
                     //blobManager.blobs.add(new Blob(300, (float) Math.PI + 0.5f, 80));
                     Assets.getAssets().pointsGained.play();
                     return;
@@ -75,14 +74,14 @@ public class World {
                     System.out.println("Not same...!");
                     System.out.println("Blob: " + blob.color + " Region: " + color);
                     blobManager.blobs.remove(blob);
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40,globe.getGlobeImage().getRandomColor()));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat() * Math.PI * 2), 20 + random.nextFloat() * 40, globe.getGlobeImage().getRandomColor()));
                     //blobManager.blobs.add(new Blob(300, (float) 0, 80));
                     damageTimer += 100;
                     return;
                 }
             }
         }
-        if(damageTimer >= 1000){
+        if (damageTimer >= 1000) {
             gameOver();
         }
     }
@@ -101,8 +100,8 @@ public class World {
         blobManager.draw();
         sR.end();
         batch.begin();
-        if(damageTimer > 0) {
-            damageTimer --;
+        if (damageTimer > 0) {
+            damageTimer--;
             warningOverlay.setAlpha(damageTimer * 0.002F);
             warningOverlay.draw(batch);
         }
