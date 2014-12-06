@@ -36,6 +36,7 @@ public class GameScreen implements Screen {
 
     public void mouseMoved(int x, int y) {
         logger.system(Gdx.app.getApplicationListener().getClass(), "x = " + x + ", y = " + y);
+        //TODO globe movement
     }
 
     @Override
