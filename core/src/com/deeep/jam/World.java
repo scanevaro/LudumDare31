@@ -27,7 +27,7 @@ public class World {
     public static BlobManager blobManager;
 
     private int damageTimer;
-    private float
+    private float backgroundRotation;
 
     public static Sprite background;
     public static Sprite warningOverlay;
@@ -49,6 +49,9 @@ public class World {
     }
 
     public void update(float deltaT) {
+        backgroundRotation += 0.5F;
+        if(backgroundRotation >= 360) backgroundRotation = 0;
+        background.setRotation(backgroundRotation);
         Gdx.input.setCursorImage(getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
