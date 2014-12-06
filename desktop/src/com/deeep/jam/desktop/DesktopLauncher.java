@@ -8,6 +8,8 @@ import com.deeep.jam.screens.Core;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 512;
+        config.height = 512;
 		new LwjglApplication(new Core(), config);
 	}
 }
