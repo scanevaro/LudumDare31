@@ -1,7 +1,6 @@
 package com.deeep.jam.input;
 
 import com.badlogic.gdx.InputProcessor;
-import com.deeep.jam.screens.AbstractGame;
 import com.deeep.jam.screens.GameScreen;
 
 /**
@@ -44,18 +43,7 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-
-        if (screenY > AbstractGame.VIRTUAL_HEIGHT / 2) {
-            if (this.screenX > screenX)
-                screen.world.globe.angleFacing += (float) screenX / 2000;
-            else if (this.screenX < screenX)
-                screen.world.globe.angleFacing -= (float) screenX / 2000;
-        } else {
-            if (this.screenX > screenX)
-                screen.world.globe.angleFacing -= (float) screenX / 2000;
-            else if (this.screenX < screenX)
-                screen.world.globe.angleFacing += (float) screenX / 2000;
-        }
+        screen.world.globe.angleFacing = (float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1);
 
         this.screenX = screenX;
         this.screenY = screenY;
@@ -65,7 +53,7 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        screen.world.globe.angleFacing = (float) ( Math.atan2(screenX-256,512-screenY-256) * -1);
+        screen.world.globe.angleFacing = (float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1);
 
         this.screenX = screenX;
         this.screenY = screenY;
