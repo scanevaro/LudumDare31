@@ -32,7 +32,7 @@ public class World {
         background.setX(-110F);
         background.setY(-110F);
         background.setRotation(90F);
-        blobManager.blobs.add(new Blob(200,45,1));
+        blobManager.blobs.add(new Blob(200,45,40));
     }
 
     public void update(float deltaT) {

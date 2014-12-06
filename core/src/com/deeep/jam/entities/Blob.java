@@ -27,12 +27,14 @@ public class Blob extends Entity {
     @Override
     public void update (float deltaT) {
         calculatePosition();
+        d += v * deltaT;
     }
 
     public void draw () {
         sR.setColor(Color.RED);
         sR.circle(x, y, 5F);
     }
+
 
     private void calculatePosition() {
         x = (float) Math.cos(Math.toRadians(theta)) * d;
