@@ -1,6 +1,9 @@
 package com.deeep.jam.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.jam.World;
 
@@ -12,9 +15,11 @@ import java.util.Random;
 public class PowerBlob extends Entity{
 
     private Random random;
+    private Sprite sprite;
 
     public PowerBlob(){
         random = new Random();
+        sprite = new Sprite(new Texture(Gdx.files.internal("images/powerup.png")));
         int r = random.nextInt(4);
         switch(r) {
             case 0:
@@ -53,8 +58,7 @@ public class PowerBlob extends Entity{
 
 
     public void render(SpriteBatch spriteBatch){
-        World.sR.setColor(Color.WHITE);
-        World.sR.rect(x, y, 10, 10);
+        sprite.draw(spriteBatch);
     }
 
 }

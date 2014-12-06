@@ -14,16 +14,27 @@ import java.util.Random;
 
 public class BlobManager {
 
-
+        private Random random;
+        private long gameTime, powerTimer;
         public ArrayList<Blob> blobs = new ArrayList<Blob>();
+        private boolean isPowerTicking;
 
         public BlobManager(){
-            for(int i = 0; i < 1000; i++){
-               // blobs.add(new Blob(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()));
-            }
+            random = new Random();
         }
 
         public void update(float deltaT){
+            gameTime ++;
+            if(!isPowerTicking){
+                isPowerTicking = true;
+            }else{
+                if(powerTimer > 1200 && gameTime > 1500){
+                    powerTimer = 0;
+                    spawnPowerBlob();
+                }else{
+                    powerTimer ++;
+                }
+            }
             ListIterator iT = blobs.listIterator();
             ArrayList<Blob> removeBlobs= new ArrayList<Blob>();
             while (iT.hasNext()){
@@ -36,7 +47,11 @@ public class BlobManager {
             blobs.removeAll(removeBlobs);
         }
 
-        public void draw(){
+    private void spawnPowerBlob() {
+    System.out.println("Spawned");
+    }
+
+    public void draw(){
             ListIterator iT = blobs.listIterator();
             while (iT.hasNext()){
                 Blob blob = (Blob) iT.next();
