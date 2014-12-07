@@ -85,6 +85,22 @@ public class World {
                 }
             }
         }
+        for (PowerBlob powerBlob : powerBlobManager.powerBlobs) {
+            if (!powerBlob.isDead) {
+                float adaptedX = Gdx.input.getX() - 24;
+                float adaptedY = 488 - Gdx.input.getY();
+                float dX = Math.abs(adaptedX - powerBlob.x);
+                float dY = Math.abs(adaptedY - powerBlob.y);
+                System.out.println(dX);
+                System.out.println(dY);
+                System.out.println("---");
+                if (dX <= 40 && dY <= 40) {
+                    powerBlob.die();
+                    Assets.getAssets().power.play();
+                    roulette.newSession();
+                }
+            }
+        }
         powerBlobManager.update(deltaT);
         if (damageTimer >= 1000) {
             gameOver();

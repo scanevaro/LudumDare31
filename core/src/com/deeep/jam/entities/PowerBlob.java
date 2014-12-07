@@ -20,7 +20,7 @@ public class PowerBlob extends Entity{
     private float deathTimer;
 
     public PowerBlob(){
-        deathTimer = 130F;
+        deathTimer = 5F;
         random = new Random();
         sprite = new Sprite(new Texture(Gdx.files.internal("images/powerup.png")));
         int r = random.nextInt(4);
@@ -56,7 +56,7 @@ public class PowerBlob extends Entity{
 
     @Override
     public void update(float deltaT){
-        if(deathTimer < 30) {
+        if(deathTimer < 2) {
             isDead = true;
         }
         if(isDead) return;
@@ -64,7 +64,7 @@ public class PowerBlob extends Entity{
         sprite.setX(x);
         sprite.setY(y);
         sprite.setScale(0.5F, 0.5F);
-        sprite.setAlpha(deathTimer/130);
+        sprite.setAlpha(deathTimer/5);
     }
 
 
@@ -73,4 +73,7 @@ public class PowerBlob extends Entity{
         sprite.draw(spriteBatch);
     }
 
+    public void die() {
+        isDead = true;
+    }
 }
