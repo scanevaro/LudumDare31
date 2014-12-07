@@ -18,7 +18,7 @@ public class BlobManager {
 
         public BlobManager(){
             for(int i = 0; i < 1000; i++){
-                blobs.add(new Blob(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()));
+               // blobs.add(new Blob(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()));
             }
         }
 

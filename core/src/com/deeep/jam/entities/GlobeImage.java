@@ -76,7 +76,7 @@ public class GlobeImage {
     }
 
     public Color getColor(int distance, float rotation) {
-        if (distance > globeSize * scale) {
+        if (Math.abs(distance) > globeSize * scale) {
             return null;
         }
         rotation += this.rotation;
@@ -87,7 +87,6 @@ public class GlobeImage {
         int tempY = (int) (Math.sin(rotation) * 5);
 
         Color color = new Color(pixmap.getPixel(tempX + width / 2, tempY + height / 2));
-        System.out.println(color);
         return color;
     }
 

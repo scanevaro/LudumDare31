@@ -19,7 +19,7 @@ public class Blob extends Entity {
     public Blob (float d, float theta, float v){
         this.v = v;
         this.d = d;
-        this.theta = theta;
+        this.theta = theta + 180;
         calculatePosition();
         color = Color.RED;
     }
@@ -27,7 +27,7 @@ public class Blob extends Entity {
     @Override
     public void update (float deltaT) {
         calculatePosition();
-        d += v * deltaT;
+        d -= v * deltaT;
     }
 
     public void draw () {
@@ -37,8 +37,8 @@ public class Blob extends Entity {
 
 
     private void calculatePosition() {
-        x = (float) Math.cos(Math.toRadians(theta)) * d;
-        y = (float) Math.sin(Math.toRadians(theta)) * d;
+        x = 256+(float) Math.cos(Math.toRadians(theta)) * d;
+        y = 256+(float) Math.sin(Math.toRadians(theta)) * d;
     }
 
 }
