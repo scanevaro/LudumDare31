@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
 //        logger = Logger.getInstance();
-        batch = ((Core) Gdx.app.getApplicationListener()).batch;
+        batch = Core.batch;
         world = new World();
 
         Gdx.input.setInputProcessor(new GameInputProcessor(this));

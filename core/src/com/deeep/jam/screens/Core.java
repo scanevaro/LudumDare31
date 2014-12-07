@@ -2,7 +2,6 @@ package com.deeep.jam.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.jam.input.Assets;
@@ -13,11 +12,7 @@ import com.deeep.jam.input.Assets;
 public class Core extends AbstractGame {
 
     public static ShapeRenderer shapeRenderer;
-
-    /**
-     * Batch
-     */
-    SpriteBatch batch;
+    public static SpriteBatch batch;
 
     /**
      * Called when the {@link com.badlogic.gdx.Application} is first created.
