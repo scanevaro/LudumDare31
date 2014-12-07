@@ -79,13 +79,29 @@ public class GlobeImage {
         calculatePixmap();
     }
 
+    public Color getColor(int x, int y) {
+        x -= 256;
+        y -= 256;
+        int distance = (int) Math.sqrt(x * x + y * y);
+        if (Math.abs(distance) > globeSize * scale) {
+            return null;
+        }
+        float otherRotation = (float) ((float) Math.atan2(y, x) + Math.PI);
+        System.out.println("otherRotation: " + otherRotation);
+        int tempX = (int) (Math.cos(otherRotation) * distance);
+        int tempY = (int) (Math.sin(otherRotation) * distance);
+
+        Color color = new Color(pixmap.getPixel(tempX + width / 2, tempY + height / 2));
+        return color;
+    }
+
     public Color getColor(int distance, float rotation) {
         if (Math.abs(distance) > globeSize * scale) {
             return null;
         }
         rotation += this.rotation;
         // if(regions.size()%2!=0){
-       // rotation += Math.PI;
+        rotation += Math.PI;
         //}
         int tempX = (int) (Math.cos(rotation) * distance);
         int tempY = (int) (Math.sin(rotation) * distance);

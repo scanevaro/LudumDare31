@@ -43,7 +43,7 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        screen.world.globe.angleFacing = (float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1);
+        //screen.world.globe.angleFacing = (float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1);
 
         this.screenX = screenX;
         this.screenY = screenY;
@@ -53,7 +53,7 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        screen.world.globe.angleFacing = (float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1);
+        //screen.world.globe.angleFacing = (float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1);
 
         this.screenX = screenX;
         this.screenY = screenY;

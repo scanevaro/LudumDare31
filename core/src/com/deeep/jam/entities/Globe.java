@@ -62,7 +62,8 @@ public class Globe extends Entity {
         int deltaY = 512- Gdx.input.getY() - 256;
         float rotation = (float) ((float) Math.atan2(deltaX, deltaY) + Math.PI/2);
         float distance = (float) Math.sqrt(deltaX*deltaX + deltaY * deltaY);
-        globeImage.getColor((int) distance, rotation);
+        //System.out.println(globeImage.getColor((int) distance, rotation));
+        //globeImage.getColor((int) Gdx.input.getX(), (int)(512-Gdx.input.getY()));
     }
 
     public Color getColor(float angle, float distance){

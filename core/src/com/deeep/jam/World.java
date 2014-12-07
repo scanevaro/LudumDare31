@@ -39,29 +39,30 @@ public class World {
     }
 
     public void update(float deltaT) {
-        Gdx.input.setCursorImage(getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
+        //Gdx.input.setCursorImage(getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
         Random random = new Random();
         for (Blob blob : blobManager.blobs) {
-            Color color = globe.getColor((float) ((blob.theta)), blob.d);
+            float angle = (float) ((float) Math.atan2(blob.x - 256, blob.y - 256) + Math.PI / 2);
+            int distance = (int) blob.d;
+            Color color = globe.getColor(angle, distance);
             if (color == null) {
                 //do nothing not colliding
             } else {
-                System.out.println(color + " rotation: " + Math.toDegrees(blob.theta));
                 if (color.equals(blob.color)) {
                     System.out.println("Same!");
                     blobManager.blobs.remove(blob);
-                    //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
-                    //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
-                    blobManager.blobs.add(new Blob(300, (float) Math.PI+ 0.5f, 80));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    //blobManager.blobs.add(new Blob(300, (float) Math.PI + 0.5f, 80));
                     Assets.getAssets().pointsGained.play();
                     return;
                 } else {
                     System.out.println("Not same...!");
                     blobManager.blobs.remove(blob);
-                    //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
-                    blobManager.blobs.add(new Blob(300, (float) 0, 80));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    //blobManager.blobs.add(new Blob(300, (float) 0, 80));
                     return;
                 }
             }
