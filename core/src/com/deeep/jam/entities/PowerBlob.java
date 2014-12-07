@@ -16,6 +16,7 @@ public class PowerBlob extends Entity{
 
     private Random random;
     private Sprite sprite;
+    public boolean isDead;
 
     public PowerBlob(){
         random = new Random();

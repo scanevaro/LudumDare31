@@ -45,7 +45,6 @@ public class Roulette {
             increaseAmount = 0;
         }
         turnTimer += increaseAmount*5 * Gdx.graphics.getDeltaTime();
-        System.out.println("increaseAmount: " + increaseAmount + " " + turnTimer);
         prevIncreaseAmount = increaseAmount;
         if (turnTimer >= 1) {
             Random random = new Random();

@@ -1,11 +1,9 @@
 package com.deeep.jam.entities;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.jam.World;
-import com.deeep.jam.input.Assets;
-
-import static com.deeep.jam.World.*;
+import com.deeep.jam.screens.Core;
 
 /**
  * Created by Andreas on 12/6/2014.
@@ -13,6 +11,7 @@ import static com.deeep.jam.World.*;
 public class Blob extends Entity {
 
     //Theta ALWAYS in radians
+    public ShapeRenderer sR;
     public float v, d, theta;
     public boolean isDead = false;
     public Color color;
@@ -21,8 +20,9 @@ public class Blob extends Entity {
         this.v = v;
         this.d = d;
         this.theta = theta;
-        calculatePosition();
         this.color = color;
+        this.sR = Core.shapeRenderer;
+        calculatePosition();
     }
 
     @Override

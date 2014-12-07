@@ -19,20 +19,21 @@ import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
  * Created by Andreas on 05/12/2014.
  */
 public class World {
-    public static int score = 0;
+    public int score = 0;
     private Roulette roulette;
     private BitmapFont bitmapFont;
 
-    public static Globe globe;
-    public static ShapeRenderer sR = Core.shapeRenderer;
-    public static BlobManager blobManager;
+    public Globe globe;
+    public ShapeRenderer sR = Core.shapeRenderer;
+    public BlobManager blobManager;
+    PowerBlobManager powerBlobManager;
 
     private int damageTimer;
     private float backgroundRotation;
     private Difficulty difficulty;
 
-    public static Sprite background;
-    public static Sprite warningOverlay;
+    public Sprite background;
+    public Sprite warningOverlay;
 
     /**
      * ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง gimme my memes ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง
@@ -44,13 +45,14 @@ public class World {
         difficulty = new Difficulty();
         globe = new Globe();
         blobManager = new BlobManager();
+        powerBlobManager = new PowerBlobManager();
         background = new Sprite(new Texture(Gdx.files.internal("background.png")));
         warningOverlay = new Sprite(new Texture(Gdx.files.internal("warning_overlay.png")));
         background.setX(-110F);
         background.setY(-110F);
         background.setRotation(90F);
         damageTimer = 0;
-        difficulty.spawn(globe);
+        difficulty.spawn(globe, blobManager);
         roulette = new Roulette();
 
     }
@@ -61,7 +63,6 @@ public class World {
         Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
-        Random random = new Random();
         for (Blob blob : blobManager.blobs) {
             if (!blob.isDead) {
                 float angle = (float) ((float) Math.atan2(blob.x - 256, blob.y - 256) + Math.PI / 2);
@@ -72,11 +73,11 @@ public class World {
                 } else {
                     blob.die();
                     if (color.equals(blob.color)) {
-                        difficulty.kill(globe);
+                        difficulty.kill(globe, blobManager);
                         Assets.getAssets().pointsGained.play();
                         break;
                     } else {
-                        difficulty.playerHit(globe);
+                        difficulty.playerHit(globe, blobManager);
                         damageTimer += 100;
                         Assets.getAssets().incorrect.play();
                         break;
@@ -84,6 +85,7 @@ public class World {
                 }
             }
         }
+        powerBlobManager.update(deltaT);
         if (damageTimer >= 1000) {
             gameOver();
         }
@@ -110,6 +112,7 @@ public class World {
         blobManager.draw();
         sR.end();
         batch.begin();
+        powerBlobManager.draw(batch);
         if (damageTimer > 0) {
             damageTimer--;
             warningOverlay.setAlpha(damageTimer * 0.002F);

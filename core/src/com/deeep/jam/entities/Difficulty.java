@@ -28,14 +28,14 @@ public class Difficulty {
         colors.add(Color.CYAN);
     }
 
-    public void playerHit(Globe globe) {
+    public void playerHit(Globe globe, BlobManager blobManager) {
         multiplier = 1;
         consecutive = 0;
         enemiesAlive--;
-        spawn(globe);
+        spawn(globe, blobManager);
     }
 
-    public void kill(Globe globe) {
+    public void kill(Globe globe, BlobManager blobManager) {
         consecutive++;
         if(consecutive%10==0)
             multiplier++;
@@ -44,7 +44,7 @@ public class Difficulty {
         enemiesAlive--;
         calculateDifficulty(globe);
         killsToDifficult--;
-        spawn(globe);
+        spawn(globe, blobManager);
     }
 
     private void calculateDifficulty(Globe globe) {
@@ -73,10 +73,10 @@ public class Difficulty {
         }
     }
 
-    public void spawn(Globe globe) {
+    public void spawn(Globe globe, BlobManager blobManager) {
         while (enemiesAlive < maxEnemiesAlive) {
             enemiesAlive++;
-            World.blobManager.blobs.add(randomBlob(globe));
+            blobManager.blobs.add(randomBlob(globe));
         }
     }
 
