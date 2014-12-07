@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.deeep.jam.BlurUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -147,14 +146,17 @@ public class GlobeImage {
 
             }
         }
-        pixmap.setColor(Color.BLACK);
+        pixmap.setColor(Color.WHITE);
         pixmap.drawCircle(width / 2, height / 2, (int) globeSize);
         pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 1);
         pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 2);
+        pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 3);
         pixmap.drawPixel((width - 1) / 2, (height - 1) / 2);
-        Pixmap blurred = BlurUtils.blur(pixmap, 2, 2, false);
+        pixmap.setFilter(Pixmap.Filter.NearestNeighbour);
 
-        Texture texture = new Texture(blurred);
+        Texture texture = new Texture(pixmap);
+        texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        texture.setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
         sprite.setTexture(texture);
         sprite = new Sprite(texture);
     }

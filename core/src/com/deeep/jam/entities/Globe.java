@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 import java.util.Random;
-import com.deeep.jam.BlurUtils;
+
 
 /**
  * Created by E on 12/6/2014.
@@ -26,8 +26,8 @@ public class Globe extends Entity {
         globeImage = new GlobeImage(planetSize, 0.25f);
         globeImage.addRegion(Color.RED);
         globeImage.addRegion(Color.BLUE);
-        globeImage.addRegion(Color.GREEN);
-        globeImage.addRegion(Color.CYAN);
+        //globeImage.addRegion(Color.GREEN);
+       // globeImage.addRegion(Color.CYAN);
 
     }
 

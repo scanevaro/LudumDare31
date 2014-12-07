@@ -49,7 +49,7 @@ public class World {
     }
 
     public void update(float deltaT) {
-        backgroundRotation += 0.5F;
+        backgroundRotation += 2F;
         if(backgroundRotation >= 360) backgroundRotation = 0;
         background.setRotation(backgroundRotation);
         Gdx.input.setCursorImage(getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
