@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        world = new World(game);
+
     }
 
     @Override
