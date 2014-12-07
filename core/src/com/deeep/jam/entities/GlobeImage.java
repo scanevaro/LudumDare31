@@ -82,7 +82,11 @@ public class GlobeImage {
 
     public Color getRandomColor(){
         Random random = new Random();
-        return regions.get(random.nextInt(regions.size())).color;
+        Color color = new Color(regions.get(random.nextInt(regions.size())).color);
+        //System.out.println(color);
+        //color.rgba8888(regions.get(random.nextInt(regions.size())).color);
+        //System.out.println(color);
+        return color;
     }
 
     public Color getColor(int x, int y) {
