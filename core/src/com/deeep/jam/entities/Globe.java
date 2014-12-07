@@ -27,6 +27,8 @@ public class Globe extends Entity {
     public int armor;
     private Sprite armorSprite;
 
+    public int angelBlock = 0;
+
     public Color color = new Color();
 
 

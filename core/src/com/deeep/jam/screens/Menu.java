@@ -13,6 +13,9 @@ import com.deeep.jam.input.Assets;
  * Created by E on 12/7/2014.
  */
 public class Menu {
+    private float menuEffect = 0;
+    private boolean doneEffect = false;
+    private boolean doingEffect = false;
     BitmapFont bitmapFont;
     public World world;
     public boolean show = true;
@@ -37,6 +40,8 @@ public class Menu {
         Letter[] about;
         Letter[] highScores;
         Letter[] quite;
+        Letter[] selected;
+        float freezeMouse = 0;
 
         public MenuOption(String text) {
             play = setUp(play, "play", 0);
@@ -61,20 +66,90 @@ public class Menu {
 
         public void draw(BitmapFont bitmapFont, SpriteBatch spriteBatch) {
             float rotation = (float) Math.atan2(512 - Gdx.input.getY() - 256, Gdx.input.getX() - 256);
+            if (freezeMouse != 0) {
+                rotation = freezeMouse;
+            }
             draw(spriteBatch, play, rotation);
             draw(spriteBatch, quite, rotation);
             draw(spriteBatch, highScores, rotation);
             draw(spriteBatch, about, rotation);
-            boolean temp = true;
-            for (Letter letter : play) {
-                if (letter.redTimer > 0) {
-                    temp = false;
+            if (!doingEffect) {
+                boolean temp = true;
+                for (Letter letter : play) {
+                    if (letter.redTimer > 0) {
+                        temp = false;
+                    }
                 }
+                if (temp) {
+                    //show = false;
+                    freezeMouse = rotation;
+                    selected = play;
+                    doingEffect = true;
+                    world.difficulty.spawn(world.globe, world.blobManager);
+                    return;
+                }
+                temp = true;
+                for (Letter letter : quite) {
+                    if (letter.redTimer > 0) {
+                        temp = false;
+                    }
+                }
+                if (temp) {
+                    freezeMouse = rotation;
+                    selected = quite;
+                    doingEffect = true;
+                }
+                for (Letter letter : highScores) {
+                    if (letter.redTimer > 0) {
+                        temp = false;
+                    }
+                }
+                if (temp) {
+                    freezeMouse = rotation;
+                    selected = highScores;
+                    doingEffect = true;
+                }
+                for (Letter letter : about) {
+                    if (letter.redTimer > 0) {
+                        temp = false;
+                    }
+                }
+                if (temp) {
+                    freezeMouse = rotation;
+                    selected = about;
+                    doingEffect = true;
+                }
+
             }
-            if (temp) {
-                show = false;
-                world.difficulty.spawn(world.globe, world.blobManager);
-                return;
+            if (menuEffect >= 512) {
+                show = true;
+            }
+            if (doingEffect) {
+                menuEffect += (Gdx.graphics.getDeltaTime() * 256);
+                if (play != selected) {
+                    moveToFinnish(play, rotation);
+                }
+                if (quite != selected) {
+                    moveToFinnish(quite, rotation);
+                }
+                if (highScores != selected) {
+                    moveToFinnish(highScores, rotation);
+                }
+                if (about != selected) {
+                    moveToFinnish(about, rotation);
+                }
+                for (int i = 0; i < selected.length; i++) {
+                    selected[i].offsetY = menuEffect;
+                }
+
+            }
+
+        }
+
+        private void moveToFinnish(Letter[] moving, float mouseRotation) {
+            for (int i = 0; i < moving.length; i++) {
+                moving[i].offsetY += (float) Math.sin(moving[i].ownRotation * mouseRotation) * 2;
+                moving[i].offsetX += (float) Math.cos(moving[i].ownRotation * mouseRotation) * 2;
             }
         }
 
@@ -87,7 +162,9 @@ public class Menu {
         }
 
         class Letter {
-            public float x, y;
+            public float offsetY;
+            public float offsetX;
+            private float x, y;
             public float ownRotation;
             Sprite sprite;
             public char character;
@@ -118,7 +195,6 @@ public class Menu {
                 }
                 rotation += 180;
                 rotation %= 360;
-                System.out.print(rotation);
                 if (!(rotation > 25 && rotation < 155)) {
                     color.a = 1;
                     if (!previousShown) {
@@ -134,8 +210,6 @@ public class Menu {
                         color.a = (25f / 45f) - ((rotation) / (float) 45);
                         //left
                     }
-                    System.out.print(" " + color.a);
-                    System.out.println();
                     previousShown = true;
                     color.b = redTimer;
                     color.g = redTimer;
@@ -154,7 +228,7 @@ public class Menu {
                     //sprite.rotate90(false);
                     sprite.setColor(color);
 
-                    sprite.setCenter(x, y);
+                    sprite.setCenter(x, y + offsetY);
                     sprite.setScale(0.6f);
                     sprite.draw(spriteBatch);
                 } else {

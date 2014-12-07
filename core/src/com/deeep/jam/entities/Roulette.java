@@ -149,16 +149,37 @@ public class Roulette {
 
     private void actSession() {
         int soundRandomizer = new Random().nextInt(2) + 1;
+
         switch (shown[2]) {
             case 0:
                 //angel
-                globe.invincible = true;
-                switch (soundRandomizer){ case 1: Assets.getAssets().angel_power1.play(); break; case 2: Assets.getAssets().angel_power2.play(); break;case 3: Assets.getAssets().angel_power3.play(); break;}
+                globe.angelBlock += 3;
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().angel_power1.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().angel_power2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().angel_power3.play();
+                        break;
+                }
                 break;
             case 1:
                 //armor
                 globe.armor();
-                switch (soundRandomizer){ case 1: Assets.getAssets().protection3.play(); break; case 2: Assets.getAssets().protection2.play(); break;case 3: Assets.getAssets().protection3.play(); break;}
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().protection3.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().protection2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().protection3.play();
+                        break;
+                }
                 break;
             case 2:
                 //todo add effects
@@ -168,37 +189,107 @@ public class Roulette {
                 for (int i = 0; i < size; i++) {
                     world.difficulty.kill(globe, world.blobManager);
                 }
-                switch (soundRandomizer){ case 1: Assets.getAssets().hasta1.play(); break; case 2: Assets.getAssets().hasta2.play(); break;case 3: Assets.getAssets().hasta3.play(); break;}
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().hasta1.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().hasta2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().hasta3.play();
+                        break;
+                }
                 break;
             case 3:
                 world.healTimer = 100;
                 world.damageTimer = 0;
-                switch (soundRandomizer){ case 1: Assets.getAssets().healpower1.play(); break; case 2: Assets.getAssets().healpower2.play(); break;case 3: Assets.getAssets().healpower3.play(); break;}
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().healpower1.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().healpower2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().healpower3.play();
+                        break;
+                }
                 break;
             case 4:
-                world.difficulty.multiplier+=5;
-                switch (soundRandomizer){ case 1: Assets.getAssets().points1.play(); break; case 2: Assets.getAssets().points2.play(); break;case 3: Assets.getAssets().points3.play(); break;}
+                world.difficulty.multiplier += 5;
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().points1.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().points2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().points3.play();
+                        break;
+                }
                 break;
             case 5:
                 world.difficulty.score *= 1.1;
-                switch (soundRandomizer){ case 1: Assets.getAssets().points1.play(); break; case 2: Assets.getAssets().points2.play(); break;case 3: Assets.getAssets().points3.play(); break;}
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().points1.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().points2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().points3.play();
+                        break;
+                }
                 break;
             case 6:
                 if (world.blobManager.generalSpeed > 0.5) {
                     world.blobManager.generalSpeed -= 0.5;
                     world.blobManager.speedDowns++;
-                    switch (soundRandomizer){ case 1: Assets.getAssets().speed_slow1.play(); break; case 2: Assets.getAssets().speed_slow2.play(); break;case 3: Assets.getAssets().speed_slow3.play(); break;}
+                    switch (soundRandomizer) {
+                        case 1:
+                            Assets.getAssets().speed_slow1.play();
+                            break;
+                        case 2:
+                            Assets.getAssets().speed_slow2.play();
+                            break;
+                        case 3:
+                            Assets.getAssets().speed_slow3.play();
+                            break;
+                    }
                 }
                 break;
             case 7:
                 //shockwave
                 world.shockwave();
-                switch (soundRandomizer){ case 1: Assets.getAssets().blow1.play(); break; case 2: Assets.getAssets().blow2.play(); break;case 3: Assets.getAssets().blow3.play(); break;}
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().blow1.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().blow2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().blow3.play();
+                        break;
+                }
                 break;
             case 8:
                 world.blobManager.generalSpeed += 0.5f;
                 world.blobManager.speedUps++;
-                switch (soundRandomizer){ case 1: Assets.getAssets().speed_fast1.play(); break; case 2: Assets.getAssets().speed_fast2.play(); break;case 3: Assets.getAssets().speed_fast3.play(); break;}
+                switch (soundRandomizer) {
+                    case 1:
+                        Assets.getAssets().speed_fast1.play();
+                        break;
+                    case 2:
+                        Assets.getAssets().speed_fast2.play();
+                        break;
+                    case 3:
+                        Assets.getAssets().speed_fast3.play();
+                        break;
+                }
                 //speedUp
                 break;
             case 9:
