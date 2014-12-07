@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 import java.util.Random;
+import com.deeep.jam.BlurUtils;
 
 /**
  * Created by E on 12/6/2014.
@@ -31,7 +32,7 @@ public class Globe extends Entity {
         addRandomColour();
 
 
-        pixmap = new Pixmap(128, 128, Pixmap.Format.RGBA4444);
+        pixmap = new Pixmap(256, 256, Pixmap.Format.RGBA4444);
         pixmap.setColor(Color.WHITE);
         pixmap.fillCircle(64, 64, planetSize);
         sprite = new Sprite();
@@ -66,13 +67,8 @@ public class Globe extends Entity {
 
             }
         }
-        pixmap.setColor(Color.BLACK);
-        for(int i = 0;i<amountRegions; i++){
-            tempX = 64 + (float) (Math.cos(Math.toRadians(i* degreesPerPart)) * planetSize);
-            tempY = 64 + (float) (Math.sin(Math.toRadians(i* degreesPerPart)) * planetSize);
-            pixmap.drawLine(64,64,(int)tempX,(int)tempY);
-        }
-        texture = new Texture(pixmap);
+        Pixmap blurred = BlurUtils.blur(pixmap, 2, 3, false);
+        texture = new Texture(blurred);
         sprite.setTexture(texture);
         sprite = new Sprite(texture);
     }
@@ -97,6 +93,7 @@ public class Globe extends Entity {
     public void draw(SpriteBatch spriteBatch) {
         super.draw(spriteBatch);
         sprite.setRotation((float) Math.toDegrees(angleFacing));
+        sprite.setScale(0.5f,0.5f);
         sprite.setCenter(256, 256);
         sprite.draw(spriteBatch);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
