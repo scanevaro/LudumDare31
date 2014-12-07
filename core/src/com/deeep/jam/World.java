@@ -21,11 +21,7 @@ import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
 import com.deeep.jam.screens.Menu;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
-
-import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
 
 /**
  * Created by Andreas on 05/12/2014.
@@ -97,6 +93,76 @@ public class World {
         //difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
 
+        stage = new Stage(new StretchViewport(512, 512), Core.batch);
+        gamesOverText = "Game Over";
+        scoreLabelText = "Score: ";
+        gameOverListChar = new TextButton[gamesOverText.length()];
+        scoreLabelChar = new TextButton[scoreLabelText.length()];
+        advances1 = new FloatArray();
+        advances2 = new FloatArray();
+        post1 = new FloatArray();
+        post2 = new FloatArray();
+        Assets.getAssets().getBitmapFont().computeGlyphAdvancesAndPositions(gamesOverText, advances1, post1);
+        Assets.getAssets().getBitmapFont().computeGlyphAdvancesAndPositions(scoreLabelText, advances2, post2);
+
+        final TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style.font = Assets.getAssets().getBitmapFont();
+
+        /** ヽ༼◕ل͜◕༽ﾉ */
+
+        for (int i = 0; i < gamesOverText.length(); i++) {
+            gameOverListChar[i] = new TextButton(String.valueOf(gamesOverText.charAt(i)), style);
+            gameOverListChar[i].setTransform(true);
+            gameOverListChar[i].setPosition(110, 360);
+//            gameOverListChar[i].setOrigin(advances1.get(i) / 2, gameOverListChar[i].getHeight() / 4);
+            stage.addActor(gameOverListChar[i]);
+        }
+
+        for (int i = 0; i < scoreLabelText.length(); i++) {
+            scoreLabelChar[i] = new TextButton(String.valueOf(scoreLabelText.charAt(i)), style);
+            scoreLabelChar[i].setTransform(true);
+            scoreLabelChar[i].setPosition(160, 360);
+            scoreLabelChar[i].setOrigin(advances2.get(i) / 2, scoreLabelChar[i].getHeight() / 4);
+            stage.addActor(scoreLabelChar[i]);
+        }
+
+        state = PLAYING;
+    }
+
+    private void resetText() {
+        for (int i = 0; i < gamesOverText.length(); i++) {
+            gameOverListChar[i].setPosition(110 + post1.get(i), 330);
+            gameOverListChar[i].setOrigin(advances1.get(i) / 2, gameOverListChar[i].getHeight() / 4);
+            gameOverListChar[i].setColor(0, 0, 0, 1);
+            gameOverListChar[i].setScale(1f);
+        }
+
+        for (int i = 0; i < scoreLabelText.length(); i++) {
+            scoreLabelChar[i].setPosition(170 + post2.get(i), 330);
+            scoreLabelChar[i].setOrigin(advances2.get(i) / 2, scoreLabelChar[i].getHeight() / 4);
+            scoreLabelChar[i].setColor(0, 0, 0, 1);
+            scoreLabelChar[i].setScale(1f);
+        }
+    }
+
+    private void prepareDrop() {
+        int tempX = 0;
+        for (int i = 0; i < gamesOverText.length(); i++) {
+            gameOverListChar[i].setY(330 + 200f);
+            gameOverListChar[i].setColor(0, 0, 0, 0);
+            gameOverListChar[i].addAction(Actions.delay(delay * i, Actions.parallel(Actions.alpha(1, time),
+                    Actions.moveTo(100 + post1.get(i) + tempX, 330, time, Interpolation.bounceOut))));
+            tempX += 15;
+        }
+
+        tempX = 0;
+        for (int i = 0; i < scoreLabelText.length(); i++) {
+            scoreLabelChar[i].setY(330 + 200f);
+            scoreLabelChar[i].setColor(0, 0, 0, 0);
+            scoreLabelChar[i].addAction(Actions.delay(delay * i, Actions.parallel(Actions.alpha(1, time),
+                    Actions.moveTo(150 + post2.get(i) + tempX, 200, time, Interpolation.bounceOut))));
+            tempX += 15;
+        }
     }
 
     public void shockwave() {
@@ -164,7 +230,8 @@ public class World {
                 if (damageTimer >= 1000)
                     gameOver();
 
-                difficulty.spawn(globe, blobManager);
+                if (!menu.show)
+                    difficulty.spawn(globe, blobManager);
                 break;
             case GAMEOVER:
                 stage.act();
