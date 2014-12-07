@@ -17,7 +17,6 @@ public class PowerBlobManager {
 
     public ArrayList<PowerBlob> powerBlobs = new ArrayList<PowerBlob>();
     private long powerTimer;
-    private boolean isPowerTicking;
     private Random random;
 
     public PowerBlobManager(){
@@ -35,16 +34,11 @@ public class PowerBlobManager {
             }
         }
         powerBlobs.removeAll(removeBlobs);
-        System.out.print("");
-        if(!isPowerTicking){
-            isPowerTicking = true;
+        if(powerTimer > 1){
+            powerTimer = 0;
+            spawnPowerBlob();
         }else{
-            if(powerTimer > 1200){
-                powerTimer = 0;
-                spawnPowerBlob();
-            }else{
-                powerTimer ++;
-            }
+            powerTimer ++;
         }
     }
 
