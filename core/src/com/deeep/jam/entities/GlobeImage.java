@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deeep.jam.BlurUtils;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by E on 12/7/2014.
@@ -77,6 +78,11 @@ public class GlobeImage {
             }
         }
         calculatePixmap();
+    }
+
+    public Color getRandomColor(){
+        Random random = new Random();
+        return regions.get(random.nextInt(regions.size())).color;
     }
 
     public Color getColor(int x, int y) {

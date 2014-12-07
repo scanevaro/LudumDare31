@@ -27,7 +27,7 @@ public class Globe extends Entity {
         globeImage.addRegion(Color.RED);
         globeImage.addRegion(Color.BLUE);
         globeImage.addRegion(Color.GREEN);
-        globeImage.addRegion(Color.OLIVE);
+        globeImage.addRegion(Color.CYAN);
 
     }
 
@@ -35,9 +35,9 @@ public class Globe extends Entity {
         Random random = new Random();
         Color color = new Color();
         color.a = 1;
-        color.r = random.nextFloat();
-        color.g = random.nextFloat();
-        color.b = random.nextFloat();
+        color.r = random.nextInt(255);
+        color.g = random.nextInt(255);
+        color.b = random.nextInt(255);
         return color;
     }
 

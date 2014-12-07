@@ -17,12 +17,12 @@ public class Blob extends Entity {
     public boolean isDead = false;
     public Color color;
 
-    public Blob (float d, float theta, float v){
+    public Blob (float d, float theta, float v, Color color){
         this.v = v;
         this.d = d;
         this.theta = theta;
         calculatePosition();
-        color = Color.RED;
+        this.color = color;
     }
 
     @Override

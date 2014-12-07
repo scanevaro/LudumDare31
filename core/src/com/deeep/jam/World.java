@@ -39,8 +39,8 @@ public class World {
         background.setX(-110F);
         background.setY(-110F);
         background.setRotation(90F);
-        blobManager.blobs.add(new Blob(300, (float) 0, 80));
         damageTimer = 0;
+        blobManager.blobs.add(new Blob(300, (float) 0, 80, globe.getGlobeImage().getRandomColor()));
     }
 
     public void update(float deltaT) {
@@ -55,19 +55,19 @@ public class World {
             if (color == null) {
                 //do nothing not colliding
             } else {
-                System.out.println(color + " rotation: " + Math.toDegrees(blob.theta));
                 if (color.equals(blob.color)) {
                     System.out.println("Same!");
                     blobManager.blobs.remove(blob);
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40,globe.getGlobeImage().getRandomColor()));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40,globe.getGlobeImage().getRandomColor()));
                     //blobManager.blobs.add(new Blob(300, (float) Math.PI + 0.5f, 80));
                     Assets.getAssets().pointsGained.play();
                     return;
                 } else {
                     System.out.println("Not same...!");
+                    System.out.println("Blob: " + blob.color + " Region: " + color);
                     blobManager.blobs.remove(blob);
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40,globe.getGlobeImage().getRandomColor()));
                     //blobManager.blobs.add(new Blob(300, (float) 0, 80));
                     damageTimer = 50;
                     return;
