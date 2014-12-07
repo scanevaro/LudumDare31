@@ -13,6 +13,7 @@ import com.deeep.jam.background.Space;
 import com.deeep.jam.entities.*;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
+import com.deeep.jam.screens.Menu;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class World {
     public Sprite frostOverlay;
     public Sprite explosionOverlay;
     private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private Menu menu;
 
     /**
      * ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง gimme my memes ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง
@@ -55,6 +57,7 @@ public class World {
     public World() {
         Assets.getAssets().loadBitmapFont();
         bitmapFont = Assets.getAssets().getBitmapFont();
+        menu = new Menu(this);
         difficulty = new Difficulty();
         globe = new Globe();
         blobManager = new BlobManager();
@@ -69,8 +72,14 @@ public class World {
         background.setRotation(90F);
         damageTimer = 0;
         space = new Space(500);
-        difficulty.spawn(globe, blobManager);
+        //difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
+        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
+        difficulty.colors.remove(0);
+        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
+        difficulty.colors.remove(0);
+        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
+        difficulty.colors.remove(0);
 
     }
 
@@ -79,11 +88,11 @@ public class World {
     }
 
     public void update(float deltaT) {
-        backgroundRotation = -globe.getAngleFacing();
+        //backgroundRotation = -globe.getAngleFacing();
         //space.setRotation((float) Math.toDegrees(backgroundRotation));
         space.update(deltaT);
-        background.setRotation((float) Math.toDegrees(backgroundRotation));
-        Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
+        //background.setRotation((float) Math.toDegrees(backgroundRotation));
+        // Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
         ArrayList<Circle> remove = new ArrayList<Circle>();
@@ -107,18 +116,15 @@ public class World {
                 if (color == null) {
                     //do nothing not colliding
                 } else {
-                    blob.die();
-                    if (color.equals(blob.color)) {
+                    if (color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b) {
                         difficulty.kill(globe, blobManager);
                         Assets.getAssets().pointsGained.play();
-                        break;
-                    } else {
-                        if (!globe.invincible) {
-                            difficulty.playerHit(globe, blobManager);
-                            damageTimer += 100;
-                            Assets.getAssets().incorrect.play();
-                        }
-                        break;
+                        blob.die();
+                    }else{
+                        blob.die();
+                        difficulty.playerHit(globe, blobManager);
+                        damageTimer += 100;
+                        Assets.getAssets().incorrect.play();
                     }
                 }
             }
@@ -140,6 +146,7 @@ public class World {
         if (damageTimer >= 1000) {
             gameOver();
         }
+        difficulty.spawn(globe, blobManager);
     }
 
     private void gameOver() {
@@ -147,9 +154,14 @@ public class World {
     }
 
     public void draw(SpriteBatch batch) {
+
+        Gdx.graphics.getGL20().glClearColor(0, 0, 0, 1);
+        Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         sR.begin(ShapeRenderer.ShapeType.Filled);
+        sR.setColor(Color.BLACK);
+        sR.rect(0, 0, 512, 512);
         space.draw(batch, sR);
         sR.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -157,11 +169,17 @@ public class World {
         globe.draw(batch);
         roulette.draw(batch);
         bitmapFont.setScale(1);
-        bitmapFont.draw(batch, "Score: " + difficulty.score, 10, bitmapFont.getLineHeight());
-        bitmapFont.setScale(0.6f);
-        bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 5, 512 - 5);
+        bitmapFont.draw(batch, "Score: " + difficulty.score, 10, 512 - 5);
+        int tempY = (int) bitmapFont.getLineHeight();
+        bitmapFont.setScale(0.5f);
+        bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 10, 512 - 10 - tempY + bitmapFont.getLineHeight());
         bitmapFont.setScale(0.4f);
         bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512 - 25);
+        if (globe.color != null) {
+            bitmapFont.draw(batch, "r: " + globe.color.r, 10, 15);
+            bitmapFont.draw(batch, "g: " + globe.color.g, 10, 15 + bitmapFont.getLineHeight());
+            bitmapFont.draw(batch, "b: " + globe.color.b, 10, 15 + +bitmapFont.getLineHeight() + bitmapFont.getLineHeight());
+        }
         batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -170,10 +188,10 @@ public class World {
         Color color = new Color(0.9f, 0.4f, 0.2f, 1);
         for (Circle circle : circles) {
             for (int i = 0; i < 12; i++) {
-                color.a = 1 - ((float)i / 12);
-                color.r = 0.9f+ color.a/10;
-                color.g = 0.4f+ color.a/10;
-                color.b = 0.2f+ color.a/10;
+                color.a = 1 - ((float) i / 12);
+                color.r = 0.9f + color.a / 10;
+                color.g = 0.4f + color.a / 10;
+                color.b = 0.2f + color.a / 10;
                 sR.setColor(color);
                 sR.circle(circle.x, circle.y, circle.radius - i);
             }
@@ -203,6 +221,7 @@ public class World {
             explosionOverlay.setAlpha(explosionTimer * 0.004F);
             explosionOverlay.draw(batch);
         }
+        menu.draw(batch);
         batch.end();
     }
 

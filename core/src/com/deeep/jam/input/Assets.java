@@ -41,12 +41,14 @@ public class Assets {
      * Standard font
      */
     private BitmapFont font;
+    private BitmapFont.BitmapFontData bitmapFontData;
     private Pixmap pixmap;
     private Pixmap kappaPixmap;
 
     public Sound pointsGained;
     public Sound incorrect;
     public Sound power;
+    public Sound menu;
 
     /**
      * Find a use for this, if there is any TODO
@@ -81,7 +83,7 @@ public class Assets {
             pixmap.fillRectangle(0, 0, 64, 64);
             blankSprite = new Sprite(new Texture(pixmap));
             font = loadBitmapFont();
-
+            bitmapFontData = new BitmapFont.BitmapFontData(Gdx.files.internal("font/font.fnt"), false);
             kappaPixmap = new Pixmap(Gdx.files.internal("kappa.png"));
             textureAtlas = new TextureAtlas(Gdx.files.internal("TextureAtlas.txt"));
 //            logger.system(Assets.class, "All assets have been loaded");
@@ -96,6 +98,7 @@ public class Assets {
         pointsGained = Gdx.audio.newSound(Gdx.files.internal("sound/blub.mp3"));
         incorrect = Gdx.audio.newSound(Gdx.files.internal("sound/knack.mp3"));
         power = Gdx.audio.newSound(Gdx.files.internal("sound/blob.mp3"));
+        menu = Gdx.audio.newSound(Gdx.files.internal("sound/menu.wav"));
     }
 
     public Sprite getBlankSprite() {
@@ -149,6 +152,9 @@ public class Assets {
      */
     public BitmapFont getBitmapFont() {
         return font;
+    }
+    public BitmapFont.BitmapFontData getBitmapFontData() {
+        return bitmapFontData;
     }
 
     public Pixmap getKappaPixmap() {
