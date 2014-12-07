@@ -15,7 +15,7 @@ public class Space {
     public Space(int starNumber) {
         Random random = new Random();
         for (int i = 0; i < starNumber; i++) {
-            stars.add(new Star(random.nextInt(368), random.nextDouble() * Math.PI * 2, random.nextFloat(), 0.05f * random.nextFloat() + 0.05f, random.nextBoolean()));
+            stars.add(new Star(random.nextInt(368), random.nextDouble() * Math.PI * 2, random.nextFloat(), 0.5f * random.nextFloat() + 0.5f, random.nextBoolean()));
         }
     }
 

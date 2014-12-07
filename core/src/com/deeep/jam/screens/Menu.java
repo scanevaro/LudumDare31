@@ -92,7 +92,7 @@ public class Menu {
             Sprite sprite;
             public char character;
             public int index = 0;
-            public float redTimer = 0;
+            public float redTimer = 1;
             private Color color = new Color(1, 1, 1, 1);
             private boolean previousShown = false;
 
