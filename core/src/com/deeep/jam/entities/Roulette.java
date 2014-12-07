@@ -148,6 +148,8 @@ public class Roulette {
     }
 
     private void actSession() {
+        world.shockwave();
+
         switch (shown[2]) {
             case 0:
                 //angel

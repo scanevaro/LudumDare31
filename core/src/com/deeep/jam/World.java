@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.deeep.jam.entities.*;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
@@ -34,6 +37,7 @@ public class World {
 
     public Sprite background;
     public Sprite warningOverlay;
+    private ArrayList<Circle> circles = new ArrayList<Circle>();
 
     /**
      * ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง gimme my memes ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง
@@ -52,9 +56,22 @@ public class World {
         background.setY(-110F);
         background.setRotation(90F);
         damageTimer = 0;
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
+        difficulty.kill(globe, blobManager);
         difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
 
+    }
+
+    public void shockwave() {
+        circles.add(new Circle(256, 256, 1));
     }
 
     public void update(float deltaT) {
@@ -63,6 +80,19 @@ public class World {
         Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
+        ArrayList<Circle> remove = new ArrayList<Circle>();
+        for (Circle circle : circles) {
+            circle.radius += deltaT * 50;
+            for (Blob blob : blobManager.blobs) {
+                if (circle.contains(blob.x, blob.y)) {
+                    blob.d = circle.radius;
+                }
+            }
+            if (circle.radius >= 200) {
+                remove.add(circle);
+            }
+        }
+        circles.removeAll(remove);
         for (Blob blob : blobManager.blobs) {
             if (!blob.isDead) {
                 float angle = (float) ((float) Math.atan2(blob.x - 256, blob.y - 256) + Math.PI / 2);
@@ -127,6 +157,9 @@ public class World {
         batch.end();
         sR.setAutoShapeType(true);
         sR.begin();
+        for (Circle circle : circles) {
+            sR.circle(circle.x, circle.y, circle.radius);
+        }
         blobManager.draw();
         sR.end();
         batch.begin();
