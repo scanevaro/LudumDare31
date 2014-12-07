@@ -8,9 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by E on 12/6/2014.
@@ -26,25 +25,28 @@ public class Globe extends Entity {
     private Sprite sprite;
 
     public Globe() {
-        regions.add(new Region(0, Color.BLUE));
-        regions.add(new Region(1, Color.RED));
-        regions.add(new Region(2, Color.GREEN));
-        regions.add(new Region(3, Color.PURPLE));
-        amountRegions = regions.size();
-        degreesPerPart = 360 / amountRegions;
-        System.out.println(degreesPerPart);
+        addRandomColour();
+        addRandomColour();
+        addRandomColour();
+        addRandomColour();
+
+
         pixmap = new Pixmap(128, 128, Pixmap.Format.RGBA4444);
         pixmap.setColor(Color.BLACK);
         pixmap.fill();
         pixmap.setColor(Color.WHITE);
         pixmap.fillCircle(64, 64, planetSize);
-        float tempAngle = 0;
+        sprite = new Sprite();
+        setSprite();
 
-        int tempX = 0;
-        int tempY = 0;
-        float angle = 0;
-        float distance = 0;
+    }
 
+    private void setSprite() {
+        float tempX, tempY;
+        float angle, distance;
+        amountRegions = regions.size();
+
+        degreesPerPart = 360 / amountRegions;
         for (int x = -0; x < 128; x++) {
             for (int y = -0; y < 128; y++) {
                 tempX = x - 64;
@@ -55,24 +57,37 @@ public class Globe extends Entity {
                     continue;
                 }
                 int degrees = (int) Math.toDegrees(angle);
-                System.out.println("d: " + distance + " r" + degrees + " (" + tempX + ", " + tempY + ")");
                 degrees += 180;
-                if (degrees < 90)
-                    pixmap.setColor(Color.GREEN);
-                else if (degrees < 180)
-                    pixmap.setColor(Color.BLUE);
-                else if(degrees < 270)
-                    pixmap.setColor(Color.PURPLE);
-                else
-                    pixmap.setColor(Color.RED);
-                pixmap.drawPixel(tempX + 64, tempY + 64);
+                for (int i = 0; i < regions.size() + 1; i++) {
+                    if (degrees <= degreesPerPart * i) {
+                        System.out.println("i: " + i + " degrees: " + degrees);
+                        pixmap.setColor(regions.get(i-1).color);
+                        break;
+                    }
+                }
+                pixmap.drawPixel((int) tempX + 64, (int) tempY + 64);
 
             }
         }
-
         texture = new Texture(pixmap);
+        sprite.setTexture(texture);
         sprite = new Sprite(texture);
+    }
 
+    public void addRandomColour(){
+        Region region = null;
+        Random random = new Random();
+        region = new Region(0,randomColour(random));
+        regions.add(region);
+    }
+
+    public Color randomColour(Random random){
+        Color color = new Color();
+        color.a = 1;
+        color.r = random.nextFloat();
+        color.g = random.nextFloat();
+        color.b = random.nextFloat();
+        return color;
     }
 
     @Override
@@ -86,6 +101,14 @@ public class Globe extends Entity {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             angleFacing -= Gdx.graphics.getDeltaTime() / 2;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            regions.clear();
+            Random random = new Random();
+            for(int i = 0, l = random.nextInt(6)+1; i<l; i++){
+                addRandomColour();
+            }
+            setSprite();
         }
 
     }
