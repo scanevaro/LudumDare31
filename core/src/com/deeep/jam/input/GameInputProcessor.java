@@ -65,18 +65,7 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-
-        if (screenY > AbstractGame.VIRTUAL_HEIGHT / 2) {
-            if (this.screenX > screenX)
-                screen.world.globe.angleFacing += (float) screenX / 2000;
-            else if (this.screenX < screenX)
-                screen.world.globe.angleFacing -= (float) screenX / 2000;
-        } else {
-            if (this.screenX > screenX)
-                screen.world.globe.angleFacing -= (float) screenX / 2000;
-            else if (this.screenX < screenX)
-                screen.world.globe.angleFacing += (float) screenX / 2000;
-        }
+        screen.world.globe.angleFacing = (float) ( Math.atan2(screenX-256,512-screenY-256) * -1);
 
         this.screenX = screenX;
         this.screenY = screenY;

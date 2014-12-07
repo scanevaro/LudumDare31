@@ -3,9 +3,14 @@ package com.deeep.jam.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
 import java.util.Random;
+import com.deeep.jam.BlurUtils;
 
 /**
  * Created by E on 12/6/2014.
@@ -19,9 +24,10 @@ public class Globe extends Entity {
 
         Random random = new Random();
         globeImage = new GlobeImage(planetSize, 0.25f);
-        globeImage.addRegion(randomColour(random));
-        globeImage.addRegion(randomColour(random));
-        globeImage.addRegion(randomColour(random));
+        globeImage.addRegion(Color.RED);
+        globeImage.addRegion(Color.BLUE);
+        globeImage.addRegion(Color.GREEN);
+        globeImage.addRegion(Color.OLIVE);
 
     }
 
@@ -51,6 +57,11 @@ public class Globe extends Entity {
             }
         }
         globeImage.draw(spriteBatch, 256, 256, (float) Math.toDegrees(angleFacing));
+        int deltaX = Gdx.input.getX() - 256;
+        int deltaY = 512- Gdx.input.getY() - 256;
+        float rotation = (float) ((float) Math.atan2(deltaX, deltaY) + Math.PI/2);
+        float distance = (float) Math.sqrt(deltaX*deltaX + deltaY * deltaY);
+        globeImage.getColor((int) distance, rotation);
     }
 
     @Override

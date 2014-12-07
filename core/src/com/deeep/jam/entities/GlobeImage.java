@@ -21,6 +21,7 @@ public class GlobeImage {
     //width and height of pixmap
     private int width, height;
     private float globeSize;
+    private float rotation;
 
     public GlobeImage(float globeSize, float scale) {
         this.globeSize = globeSize;
@@ -51,6 +52,7 @@ public class GlobeImage {
         sprite.setCenter(x, y);
         sprite.setRotation(rotation);
         sprite.draw(spriteBatch);
+        this.rotation = (float) Math.toRadians(rotation);
     }
 
     public void addRegion(Color color) {
@@ -73,6 +75,22 @@ public class GlobeImage {
         calculatePixmap();
     }
 
+    public Color getColor(int distance, float rotation) {
+        if(distance>globeSize*scale){
+            return null;
+        }
+        rotation += this.rotation;
+       // if(regions.size()%2!=0){
+            rotation+= Math.PI;
+        //}
+        int tempX = (int) (Math.cos(rotation) * 5);
+        int tempY = (int) (Math.sin(rotation) * 5);
+
+        Color color = new Color(pixmap.getPixel(tempX + width/2,tempY+height/2));
+        System.out.println(color);
+        return color;
+    }
+
     private void calculatePixmap() {
         float tempX, tempY;
         float angle, distance;
@@ -85,7 +103,7 @@ public class GlobeImage {
                 tempY = y - height / 2;
                 distance = (float) Math.sqrt(tempX * tempX + tempY * tempY);
                 angle = (float) Math.atan2(tempY, tempX);
-                if (distance > globeSize + 1) {
+                if ((int) distance >= globeSize) {
                     continue;
                 }
                 int degrees = (int) Math.toDegrees(angle);
@@ -100,7 +118,13 @@ public class GlobeImage {
 
             }
         }
+        pixmap.setColor(Color.BLACK);
+        pixmap.drawCircle(width/2,height/2, (int) globeSize);
+        pixmap.drawCircle(width/2,height/2, (int) globeSize-1);
+        pixmap.drawCircle(width/2,height/2, (int) globeSize-2);
+
         Pixmap blurred = BlurUtils.blur(pixmap, 2, 2, false);
+
         Texture texture = new Texture(blurred);
         sprite.setTexture(texture);
         sprite = new Sprite(texture);
