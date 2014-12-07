@@ -41,6 +41,7 @@ public class Assets {
      * Standard font
      */
     private BitmapFont font;
+    private BitmapFont.BitmapFontData bitmapFontData;
     private Pixmap pixmap;
     private Pixmap kappaPixmap;
 
@@ -81,7 +82,7 @@ public class Assets {
             pixmap.fillRectangle(0, 0, 64, 64);
             blankSprite = new Sprite(new Texture(pixmap));
             font = loadBitmapFont();
-
+            bitmapFontData = new BitmapFont.BitmapFontData(Gdx.files.internal("font/font.fnt"), false);
             kappaPixmap = new Pixmap(Gdx.files.internal("kappa.png"));
             textureAtlas = new TextureAtlas(Gdx.files.internal("TextureAtlas.txt"));
 //            logger.system(Assets.class, "All assets have been loaded");
@@ -149,6 +150,9 @@ public class Assets {
      */
     public BitmapFont getBitmapFont() {
         return font;
+    }
+    public BitmapFont.BitmapFontData getBitmapFontData() {
+        return bitmapFontData;
     }
 
     public Pixmap getKappaPixmap() {

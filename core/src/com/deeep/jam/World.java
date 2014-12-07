@@ -13,6 +13,7 @@ import com.deeep.jam.background.Space;
 import com.deeep.jam.entities.*;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
+import com.deeep.jam.screens.Menu;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class World {
     public Sprite frostOverlay;
     public Sprite explosionOverlay;
     private ArrayList<Circle> circles = new ArrayList<Circle>();
+    private Menu menu;
 
     /**
      * ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง gimme my memes ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง
@@ -55,6 +57,7 @@ public class World {
     public World() {
         Assets.getAssets().loadBitmapFont();
         bitmapFont = Assets.getAssets().getBitmapFont();
+        menu = new Menu(this);
         difficulty = new Difficulty();
         globe = new Globe();
         blobManager = new BlobManager();
@@ -69,7 +72,7 @@ public class World {
         background.setRotation(90F);
         damageTimer = 0;
         space = new Space(500);
-        difficulty.spawn(globe, blobManager);
+        //difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
 
     }
@@ -203,6 +206,7 @@ public class World {
             explosionOverlay.setAlpha(explosionTimer * 0.004F);
             explosionOverlay.draw(batch);
         }
+        menu.draw(batch);
         batch.end();
     }
 
