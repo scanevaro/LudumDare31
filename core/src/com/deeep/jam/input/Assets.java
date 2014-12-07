@@ -49,6 +49,8 @@ public class Assets {
     public Sound incorrect;
     public Sound power;
     public Sound menu;
+    public Sound speed_down;
+    public Sound speed_up;
 
     /**
      * Find a use for this, if there is any TODO
@@ -99,6 +101,8 @@ public class Assets {
         incorrect = Gdx.audio.newSound(Gdx.files.internal("sound/knack.mp3"));
         power = Gdx.audio.newSound(Gdx.files.internal("sound/blob.mp3"));
         menu = Gdx.audio.newSound(Gdx.files.internal("sound/menu.wav"));
+        speed_down = Gdx.audio.newSound(Gdx.files.internal("sound/speed_down.mp3"));
+        speed_up = Gdx.audio.newSound(Gdx.files.internal("sound/speed_up.mp3"));
     }
 
     public Sprite getBlankSprite() {

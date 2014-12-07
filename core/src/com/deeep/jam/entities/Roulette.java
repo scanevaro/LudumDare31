@@ -181,6 +181,7 @@ public class Roulette {
                 if (world.blobManager.generalSpeed > 0.5) {
                     world.blobManager.generalSpeed -= 0.5;
                     world.blobManager.speedDowns++;
+                    Assets.getAssets().speed_down.play();
                 }
                 break;
             case 7:
@@ -190,6 +191,7 @@ public class Roulette {
             case 8:
                 world.blobManager.generalSpeed += 0.5f;
                 world.blobManager.speedUps++;
+                Assets.getAssets().speed_up.play();
                 //speedUp
                 break;
             case 9:
