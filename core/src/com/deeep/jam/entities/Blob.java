@@ -39,15 +39,14 @@ public class Blob extends Entity {
 
 
     private void calculatePosition() {
-        x = 256+(float) Math.cos(Math.toRadians(theta)) * d;
-        y = 256+(float) Math.sin(Math.toRadians(theta)) * d;
+        x = 256+(float) Math.cos((theta)) * d;
+        y = 256+(float) Math.sin((theta)) * d;
     }
 
     public void die(){
         isDead = true;
         Assets.getAssets().pointsGained.play();
-        x = 256+(float) Math.cos((theta)) * d;
-        y = 256+(float) Math.sin((theta)) * d;
+
     }
 
 }
