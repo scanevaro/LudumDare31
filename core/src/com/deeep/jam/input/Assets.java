@@ -48,6 +48,7 @@ public class Assets {
     public Sound pointsGained;
     public Sound incorrect;
     public Sound power;
+    public Sound menu;
 
     /**
      * Find a use for this, if there is any TODO
@@ -97,6 +98,7 @@ public class Assets {
         pointsGained = Gdx.audio.newSound(Gdx.files.internal("sound/blub.mp3"));
         incorrect = Gdx.audio.newSound(Gdx.files.internal("sound/knack.mp3"));
         power = Gdx.audio.newSound(Gdx.files.internal("sound/blob.mp3"));
+        menu = Gdx.audio.newSound(Gdx.files.internal("sound/menu.wav"));
     }
 
     public Sprite getBlankSprite() {

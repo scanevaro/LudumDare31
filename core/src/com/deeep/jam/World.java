@@ -111,6 +111,7 @@ public class World {
                     //do nothing not colliding
                 } else {
                     blob.die();
+                    if(color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b)
                     if (color.equals(blob.color)) {
                         difficulty.kill(globe, blobManager);
                         Assets.getAssets().pointsGained.play();
@@ -160,9 +161,10 @@ public class World {
         globe.draw(batch);
         roulette.draw(batch);
         bitmapFont.setScale(1);
-        bitmapFont.draw(batch, "Score: " + difficulty.score, 10, bitmapFont.getLineHeight());
-        bitmapFont.setScale(0.6f);
-        bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 5, 512 - 5);
+        bitmapFont.draw(batch, "Score: " + difficulty.score, 10, 512 - 5);
+        int tempY = (int) bitmapFont.getLineHeight();
+        bitmapFont.setScale(0.5f);
+        bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 10, 512 - 10 - tempY + bitmapFont.getLineHeight());
         bitmapFont.setScale(0.4f);
         bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512 - 25);
         batch.end();
@@ -173,10 +175,10 @@ public class World {
         Color color = new Color(0.9f, 0.4f, 0.2f, 1);
         for (Circle circle : circles) {
             for (int i = 0; i < 12; i++) {
-                color.a = 1 - ((float)i / 12);
-                color.r = 0.9f+ color.a/10;
-                color.g = 0.4f+ color.a/10;
-                color.b = 0.2f+ color.a/10;
+                color.a = 1 - ((float) i / 12);
+                color.r = 0.9f + color.a / 10;
+                color.g = 0.4f + color.a / 10;
+                color.b = 0.2f + color.a / 10;
                 sR.setColor(color);
                 sR.circle(circle.x, circle.y, circle.radius - i);
             }

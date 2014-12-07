@@ -94,6 +94,7 @@ public class Menu {
             public int index = 0;
             public float redTimer = 0;
             private Color color = new Color(1, 1, 1, 1);
+            private boolean previousShown = false;
 
             public Letter(char letter, float ownRotation) {
                 character = letter;
@@ -117,7 +118,11 @@ public class Menu {
                 }
                 rotation += 180;
                 rotation %= 360;
-                if (rotation > 180) {
+                if (rotation > 90) {
+                    if (!previousShown) {
+                        Assets.getAssets().menu.play();
+                    }
+                    previousShown = true;
                     color.b = redTimer;
                     color.g = redTimer;
                     if (rotation > 225 && rotation < 315) {
@@ -139,6 +144,7 @@ public class Menu {
                     sprite.draw(spriteBatch);
                 } else {
                     redTimer = 1;
+                    previousShown = false;
                 }
             }
         }

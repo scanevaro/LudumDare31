@@ -28,8 +28,8 @@ public class GlobeImage {
         this.width = 256;
         this.height = 256;
         this.scale = scale;
-        pixmap = new Pixmap(width, height, Pixmap.Format.RGBA4444);
-        blurredImage = new Pixmap(width, height, Pixmap.Format.RGBA4444);
+        pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        blurredImage = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         sprite = new Sprite();
         calculatePixmap();
     }
