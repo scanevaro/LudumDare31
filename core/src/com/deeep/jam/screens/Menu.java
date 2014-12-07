@@ -118,10 +118,24 @@ public class Menu {
                 }
                 rotation += 180;
                 rotation %= 360;
-                if (rotation > 90) {
+                System.out.print(rotation);
+                if (!(rotation > 25 && rotation < 155)) {
+                    color.a = 1;
                     if (!previousShown) {
                         Assets.getAssets().menu.play();
                     }
+                    if (rotation < 200 && rotation > 155) {
+                        color.a = (rotation - 155) / 45;
+                        //right
+                    } else if (rotation > 340) {
+                        color.a = 20 / 45 + 1 - ((rotation - 340) / 45);
+                        //left
+                    } else if (rotation < 25 && rotation > 0) {
+                        color.a = (25f / 45f) - ((rotation) / (float) 45);
+                        //left
+                    }
+                    System.out.print(" " + color.a);
+                    System.out.println();
                     previousShown = true;
                     color.b = redTimer;
                     color.g = redTimer;
