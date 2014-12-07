@@ -234,10 +234,16 @@ public class World {
                                 Assets.getAssets().pointsGained.play();
                                 blob.die();
                             } else {
+                                if (globe.angelBlock > 0) {
+                                    globe.angelBlock--;
+                                    difficulty.kill(globe, blobManager);
+                                    Assets.getAssets().pointsGained.play();
+                                } else {
+                                    difficulty.playerHit(globe, blobManager);
+                                    damageTimer += 100;
+                                    Assets.getAssets().incorrect.play();
+                                }
                                 blob.die();
-                                difficulty.playerHit(globe, blobManager);
-                                damageTimer += 100;
-                                Assets.getAssets().incorrect.play();
                             }
                         }
                     }
@@ -316,6 +322,10 @@ public class World {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         sR.setAutoShapeType(true);
         sR.begin();
+        sR.setColor(Color.YELLOW);
+        for (int i = 0; i < globe.angelBlock; i++) {
+            sR.circle(256, 256, 70 + i);
+        }
         Color color = new Color(0.9f, 0.4f, 0.2f, 1);
         for (Circle circle : circles) {
             for (int i = 0; i < 12; i++) {
