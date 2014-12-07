@@ -23,7 +23,8 @@ public class Globe extends Entity {
     private boolean frozen = false;
     private float freezeTimer = 0;
     public boolean invincible = false;
-    private float invincibleTimer = 0;
+    private float invincibleTimer = 0, armorTimer;
+    private int armor;
 
 
     public void setAngleFacing(float angleFacing){
@@ -116,5 +117,12 @@ public class Globe extends Entity {
     @Override
     public void update(float deltaT) {
         super.update(deltaT);
+        if(armorTimer > 0) armor --;
+        if(armorTimer == 0) armor = 0;
+    }
+
+    public void armor() {
+        this.armor = 5;
+        this.armorTimer = 300;
     }
 }

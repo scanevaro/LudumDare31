@@ -35,11 +35,17 @@ public class World {
     PowerBlobManager powerBlobManager;
 
     public int damageTimer;
+    public int healTimer;
+    public int frostTimer;
+    public int explosionTimer;
     private float backgroundRotation;
     public Difficulty difficulty;
 
     public Sprite background;
     public Sprite warningOverlay;
+    public Sprite healOverlay;
+    public Sprite frostOverlay;
+    public Sprite explosionOverlay;
     private ArrayList<Circle> circles = new ArrayList<Circle>();
 
     /**
@@ -55,6 +61,9 @@ public class World {
         powerBlobManager = new PowerBlobManager();
         background = new Sprite(new Texture(Gdx.files.internal("background.png")));
         warningOverlay = new Sprite(new Texture(Gdx.files.internal("warning_overlay.png")));
+        healOverlay = new Sprite(new Texture(Gdx.files.internal("heal_overlay.png")));
+        frostOverlay = new Sprite(new Texture(Gdx.files.internal("frost_overlay.png")));
+        explosionOverlay = new Sprite(new Texture(Gdx.files.internal("explosion_overlay.png")));
         background.setX(-110F);
         background.setY(-110F);
         background.setRotation(90F);
@@ -178,6 +187,21 @@ public class World {
             damageTimer--;
             warningOverlay.setAlpha(damageTimer * 0.002F);
             warningOverlay.draw(batch);
+        }
+        if (healTimer > 0) {
+            healTimer--;
+            healOverlay.setAlpha(healTimer * 0.004F);
+            healOverlay.draw(batch);
+        }
+        if (frostTimer > 0) {
+            frostTimer--;
+            frostOverlay.setAlpha(frostTimer * 0.004F);
+            frostOverlay.draw(batch);
+        }
+        if (explosionTimer > 0) {
+            explosionTimer--;
+            explosionOverlay.setAlpha(explosionTimer * 0.004F);
+            explosionOverlay.draw(batch);
         }
         batch.end();
     }
