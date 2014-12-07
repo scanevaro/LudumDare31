@@ -69,11 +69,18 @@ public class World {
                     blobManager.blobs.remove(blob);
                     blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40,globe.getGlobeImage().getRandomColor()));
                     //blobManager.blobs.add(new Blob(300, (float) 0, 80));
-                    damageTimer = 50;
+                    damageTimer += 100;
                     return;
                 }
             }
         }
+        if(damageTimer >= 1000){
+            gameOver();
+        }
+    }
+
+    private void gameOver() {
+
     }
 
     public void draw(SpriteBatch batch) {
@@ -88,7 +95,7 @@ public class World {
         batch.begin();
         if(damageTimer > 0) {
             damageTimer --;
-            warningOverlay.setAlpha(0.3F + damageTimer * 0.01F);
+            warningOverlay.setAlpha(damageTimer * 0.002F);
             warningOverlay.draw(batch);
         }
         batch.end();
