@@ -60,9 +60,11 @@ public class World {
     private Stage stage;
     private TextButton[] gameOverListChar;
     private TextButton[] scoreLabelChar;
-    private FloatArray post1, advances1, post2, advances2;
-    private String gamesOverText, scoreLabelText;
+    private TextButton[] scoreChar;
+    private FloatArray post1, advances1, post2, advances2, post3, advances3;
+    private String gamesOverText, scoreLabelText, scoreText;
     private static final float time = 0.5f, delay = 0.2f;
+    private TextButton.TextButtonStyle style;
 
     /**
      * ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง gimme my memes ༼ง ͠ຈ ͟ل͜ ͠ຈ༽ง
@@ -105,7 +107,7 @@ public class World {
         Assets.getAssets().getBitmapFont().computeGlyphAdvancesAndPositions(gamesOverText, advances1, post1);
         Assets.getAssets().getBitmapFont().computeGlyphAdvancesAndPositions(scoreLabelText, advances2, post2);
 
-        final TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
+        style = new TextButton.TextButtonStyle();
         style.font = Assets.getAssets().getBitmapFont();
 
         /** ヽ༼◕ل͜◕༽ﾉ */
@@ -114,7 +116,7 @@ public class World {
             gameOverListChar[i] = new TextButton(String.valueOf(gamesOverText.charAt(i)), style);
             gameOverListChar[i].setTransform(true);
             gameOverListChar[i].setPosition(110, 360);
-//            gameOverListChar[i].setOrigin(advances1.get(i) / 2, gameOverListChar[i].getHeight() / 4);
+            gameOverListChar[i].setOrigin(advances1.get(i) / 2, gameOverListChar[i].getHeight() / 4);
             stage.addActor(gameOverListChar[i]);
         }
 
@@ -143,6 +145,25 @@ public class World {
             scoreLabelChar[i].setColor(0, 0, 0, 1);
             scoreLabelChar[i].setScale(1f);
         }
+
+        scoreText = String.valueOf(difficulty.score);
+        scoreChar = new TextButton[scoreText.length()];
+        advances3 = new FloatArray();
+        post3 = new FloatArray();
+        Assets.getAssets().getBitmapFont().computeGlyphAdvancesAndPositions(scoreText, advances3, post3);
+        for (int i = 0; i < scoreText.length(); i++) {
+            scoreChar[i] = new TextButton(String.valueOf(scoreText.charAt(i)), style);
+            scoreChar[i].setTransform(true);
+            scoreChar[i].setPosition(160, 360);
+            scoreChar[i].setOrigin(advances3.get(i) / 2, scoreChar[i].getHeight() / 4);
+            stage.addActor(scoreChar[i]);
+        }
+        for (int i = 0; i < scoreText.length(); i++) {
+            scoreLabelChar[i].setPosition(170 + post3.get(i), 330);
+            scoreLabelChar[i].setOrigin(advances3.get(i) / 2, scoreChar[i].getHeight() / 4);
+            scoreLabelChar[i].setColor(0, 0, 0, 1);
+            scoreLabelChar[i].setScale(1f);
+        }
     }
 
     private void prepareDrop() {
@@ -162,6 +183,14 @@ public class World {
             scoreLabelChar[i].addAction(Actions.delay(delay * i, Actions.parallel(Actions.alpha(1, time),
                     Actions.moveTo(150 + post2.get(i) + tempX, 200, time, Interpolation.bounceOut))));
             tempX += 15;
+        }
+
+        /** Score */
+        for (int i = 0; i < scoreText.length(); i++) {
+            scoreChar[i].setY(330 + 200f);
+            scoreChar[i].setColor(0, 0, 0, 0);
+            scoreChar[i].addAction(Actions.delay(delay * i, Actions.parallel(Actions.alpha(1, time),
+                    Actions.moveTo(100 + post3.get(i) + tempX, 150, time, Interpolation.bounceOut))));
         }
     }
 
@@ -324,11 +353,6 @@ public class World {
             explosionOverlay.draw(batch);
         }
         menu.draw(batch);
-
-        if (state == GAMEOVER) {
-            bitmapFont.setScale(1.5f);
-            bitmapFont.draw(batch, "" + difficulty.score, 200, 150);
-        }
 
         batch.end();
 
