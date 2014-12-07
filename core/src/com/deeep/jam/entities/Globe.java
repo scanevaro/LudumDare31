@@ -45,18 +45,27 @@ public class Globe extends Entity {
         float angle = 0;
         float distance = 0;
 
-        for (int x = 0; x < 128; x++) {
-            for (int y = 0; y < 128; y++) {
-                tempX = x+  64;
-                tempY = y+  64;
-                distance = (float) Math.sqrt(x * x + y * y);
+        for (int x = -0; x < 128; x++) {
+            for (int y = -0; y < 128; y++) {
+                tempX = x - 64;
+                tempY = y - 64;
+                distance = (float) Math.sqrt(tempX * tempX + tempY * tempY);
                 angle = (float) Math.atan2(tempY, tempX);
-                if (distance > planetSize+1)
+                if (distance > planetSize + 1) {
                     continue;
+                }
                 int degrees = (int) Math.toDegrees(angle);
-                System.out.println("d: " + distance + " r" + degrees);
-                pixmap.setColor(Color.GREEN);
-                pixmap.drawPixel(tempX, tempY);
+                System.out.println("d: " + distance + " r" + degrees + " (" + tempX + ", " + tempY + ")");
+                degrees += 180;
+                if (degrees < 90)
+                    pixmap.setColor(Color.GREEN);
+                else if (degrees < 180)
+                    pixmap.setColor(Color.BLUE);
+                else if(degrees < 270)
+                    pixmap.setColor(Color.PURPLE);
+                else
+                    pixmap.setColor(Color.RED);
+                pixmap.drawPixel(tempX + 64, tempY + 64);
 
             }
         }
