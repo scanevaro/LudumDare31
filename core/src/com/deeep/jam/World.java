@@ -92,12 +92,6 @@ public class World {
         space = new Space(500);
         //difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
-        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
-        difficulty.colors.remove(0);
-        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
-        difficulty.colors.remove(0);
-        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
-        difficulty.colors.remove(0);
 
         stage = new Stage(new StretchViewport(512, 512), Core.batch);
         gamesOverText = "Game Over";
@@ -236,7 +230,8 @@ public class World {
                 if (damageTimer >= 1000)
                     gameOver();
 
-                difficulty.spawn(globe, blobManager);
+                if (!menu.show)
+                    difficulty.spawn(globe, blobManager);
                 break;
             case GAMEOVER:
                 stage.act();
