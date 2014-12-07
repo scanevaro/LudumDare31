@@ -139,6 +139,7 @@ public class Menu {
                     }
                     //sprite.rotate90(false);
                     sprite.setColor(color);
+
                     sprite.setCenter(x, y);
                     sprite.setScale(0.6f);
                     sprite.draw(spriteBatch);
