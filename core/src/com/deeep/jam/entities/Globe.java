@@ -22,6 +22,9 @@ public class Globe extends Entity {
     private float freezeAngle;
     private boolean frozen = false;
     private float freezeTimer = 0;
+    public boolean invincible = false;
+    private float invincibleTimer = 0;
+
 
     public void setAngleFacing(float angleFacing){
         if(frozen)
@@ -66,6 +69,13 @@ public class Globe extends Entity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         super.draw(spriteBatch);
+        if(invincible){
+            invincibleTimer+=Gdx.graphics.getDeltaTime();
+            if(invincibleTimer>=4){
+                invincibleTimer = 0;
+                invincible = false;
+            }
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             setAngleFacing(getAngleFacing()+ Gdx.graphics.getDeltaTime() * 5);
         }

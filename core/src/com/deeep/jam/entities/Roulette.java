@@ -151,6 +151,7 @@ public class Roulette {
         switch (shown[2]) {
             case 0:
                 //angel
+                globe.invincible = true;
                 break;
             case 1:
                 //armor
@@ -159,8 +160,8 @@ public class Roulette {
                 //todo add effects
                 int size = world.blobManager.blobs.size();
                 world.blobManager.blobs.clear();
-                for(int i = 0; i<size; i++){
-                    world.difficulty.kill(globe,world.blobManager);
+                for (int i = 0; i < size; i++) {
+                    world.difficulty.kill(globe, world.blobManager);
                 }
                 break;
             case 3:
@@ -170,15 +171,19 @@ public class Roulette {
                 world.difficulty.multiplier++;
                 break;
             case 5:
-                world.difficulty.score += world.difficulty.score/10;
+                world.difficulty.score += world.difficulty.score / 10;
                 break;
             case 6:
-                world.blobManager.speedDowns++;
+                if (world.blobManager.generalSpeed > 0.5) {
+                    world.blobManager.generalSpeed -= 0.5;
+                    world.blobManager.speedDowns++;
+                }
                 break;
             case 7:
                 //shockwave
                 break;
             case 8:
+                world.blobManager.generalSpeed += 0.5f;
                 world.blobManager.speedUps++;
                 //speedUp
                 break;

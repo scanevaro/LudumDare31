@@ -53,7 +53,7 @@ public class World {
         background.setRotation(90F);
         damageTimer = 0;
         difficulty.spawn(globe, blobManager);
-        roulette = new Roulette(this,globe);
+        roulette = new Roulette(this, globe);
 
     }
 
@@ -77,9 +77,11 @@ public class World {
                         Assets.getAssets().pointsGained.play();
                         break;
                     } else {
-                        difficulty.playerHit(globe, blobManager);
-                        damageTimer += 100;
-                        Assets.getAssets().incorrect.play();
+                        if (!globe.invincible) {
+                            difficulty.playerHit(globe, blobManager);
+                            damageTimer += 100;
+                            Assets.getAssets().incorrect.play();
+                        }
                         break;
                     }
                 }
@@ -121,7 +123,7 @@ public class World {
         bitmapFont.setScale(0.6f);
         bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 5, 512 - 5);
         bitmapFont.setScale(0.4f);
-        bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512-25);
+        bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512 - 25);
         batch.end();
         sR.setAutoShapeType(true);
         sR.begin();
