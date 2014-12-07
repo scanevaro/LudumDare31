@@ -20,7 +20,7 @@ public class Difficulty {
     private float minForce = 40;
     private float maxForce = 80;
     public int difficulty = 1;
-    private ArrayList<Color> colors = new ArrayList<Color>();
+    public ArrayList<Color> colors = new ArrayList<Color>();
 
     public Difficulty() {
         colors.add(Color.BLUE);
@@ -32,7 +32,6 @@ public class Difficulty {
         multiplier = 1;
         consecutive = 0;
         enemiesAlive--;
-        spawn(globe, blobManager);
     }
 
     public void kill(Globe globe, BlobManager blobManager) {
@@ -44,7 +43,6 @@ public class Difficulty {
         enemiesAlive--;
         calculateDifficulty(globe);
         killsToDifficult--;
-        spawn(globe, blobManager);
     }
 
     private void calculateDifficulty(Globe globe) {
@@ -52,8 +50,10 @@ public class Difficulty {
             System.out.println("increase dif");
             killsToDifficult = 2;
             if(difficulty == 1){
-                globe.getGlobeImage().addRegion(colors.get(0));
-                colors.remove(0);
+                if(colors.size()>0) {
+                    globe.getGlobeImage().addRegion(colors.get(0));
+                    colors.remove(0);
+                }
             }
             if (difficulty % 8 == 0) {
                 System.out.println("increase color");

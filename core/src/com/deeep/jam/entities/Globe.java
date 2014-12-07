@@ -26,6 +26,8 @@ public class Globe extends Entity {
     private float invincibleTimer = 0, armorTimer;
     private int armor;
 
+    public Color color = new Color();
+
 
     public void setAngleFacing(float angleFacing){
         if(frozen)
@@ -103,6 +105,7 @@ public class Globe extends Entity {
         int distance = (int) Math.sqrt(deltaX*deltaX + deltaY*deltaY);
         float rotation = (float) Math.atan2(deltaY,deltaX);
         //System.out.println(globeImage.getColor((int) distance, rotation));
+        color = globeImage.getColor((int) distance, rotation);
         //globeImage.getColor((int) Gdx.input.getX(), (int)(512-Gdx.input.getY()));
     }
 

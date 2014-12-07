@@ -74,6 +74,12 @@ public class World {
         space = new Space(500);
         //difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
+        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
+        difficulty.colors.remove(0);
+        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
+        difficulty.colors.remove(0);
+        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
+        difficulty.colors.remove(0);
 
     }
 
@@ -82,11 +88,11 @@ public class World {
     }
 
     public void update(float deltaT) {
-        backgroundRotation = -globe.getAngleFacing();
+        //backgroundRotation = -globe.getAngleFacing();
         //space.setRotation((float) Math.toDegrees(backgroundRotation));
         space.update(deltaT);
-        background.setRotation((float) Math.toDegrees(backgroundRotation));
-        Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
+        //background.setRotation((float) Math.toDegrees(backgroundRotation));
+        // Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
         ArrayList<Circle> remove = new ArrayList<Circle>();
@@ -110,19 +116,15 @@ public class World {
                 if (color == null) {
                     //do nothing not colliding
                 } else {
-                    blob.die();
-                    if(color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b)
-                    if (color.equals(blob.color)) {
+                    if (color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b) {
                         difficulty.kill(globe, blobManager);
                         Assets.getAssets().pointsGained.play();
-                        break;
-                    } else {
-                        if (!globe.invincible) {
-                            difficulty.playerHit(globe, blobManager);
-                            damageTimer += 100;
-                            Assets.getAssets().incorrect.play();
-                        }
-                        break;
+                        blob.die();
+                    }else{
+                        blob.die();
+                        difficulty.playerHit(globe, blobManager);
+                        damageTimer += 100;
+                        Assets.getAssets().incorrect.play();
                     }
                 }
             }
@@ -144,6 +146,7 @@ public class World {
         if (damageTimer >= 1000) {
             gameOver();
         }
+        difficulty.spawn(globe, blobManager);
     }
 
     private void gameOver() {
@@ -151,9 +154,14 @@ public class World {
     }
 
     public void draw(SpriteBatch batch) {
+
+        Gdx.graphics.getGL20().glClearColor(0, 0, 0, 1);
+        Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         sR.begin(ShapeRenderer.ShapeType.Filled);
+        sR.setColor(Color.BLACK);
+        sR.rect(0, 0, 512, 512);
         space.draw(batch, sR);
         sR.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -167,6 +175,11 @@ public class World {
         bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 10, 512 - 10 - tempY + bitmapFont.getLineHeight());
         bitmapFont.setScale(0.4f);
         bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512 - 25);
+        if (globe.color != null) {
+            bitmapFont.draw(batch, "r: " + globe.color.r, 10, 15);
+            bitmapFont.draw(batch, "g: " + globe.color.g, 10, 15 + bitmapFont.getLineHeight());
+            bitmapFont.draw(batch, "b: " + globe.color.b, 10, 15 + +bitmapFont.getLineHeight() + bitmapFont.getLineHeight());
+        }
         batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);

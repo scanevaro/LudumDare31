@@ -15,13 +15,13 @@ import java.util.Random;
 public class GlobeImage {
     private ArrayList<Region> regions = new ArrayList<Region>();
     private Pixmap pixmap;
-    private Pixmap blurredImage;
     private Sprite sprite;
     private float scale;
     //width and height of pixmap
     private int width, height;
     private float globeSize;
     private float rotation;
+    private Color image[][];
 
     public GlobeImage(float globeSize, float scale) {
         this.globeSize = globeSize - 1;
@@ -29,7 +29,12 @@ public class GlobeImage {
         this.height = 256;
         this.scale = scale;
         pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-        blurredImage = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+        image = new Color[256][256];
+        for (int i = 0; i < 256; i++) {
+            for (int j = 0; j < 256; j++) {
+                image[i][j] = new Color(1, 1, 1, 1);
+            }
+        }
         sprite = new Sprite();
         calculatePixmap();
     }
@@ -79,7 +84,7 @@ public class GlobeImage {
         calculatePixmap();
     }
 
-    public Color getRandomColor(){
+    public Color getRandomColor() {
         Random random = new Random();
         Color color = new Color(regions.get(random.nextInt(regions.size())).color);
         //System.out.println(color);
@@ -115,7 +120,9 @@ public class GlobeImage {
         int tempX = (int) (Math.cos(rotation) * distance);
         int tempY = (int) (Math.sin(rotation) * distance);
 
-        Color color = new Color(pixmap.getPixel(tempX + width / 2, tempY + height / 2));
+        //Color color = new Color(pixmap.getPixel(tempX + width / 2, tempY + height / 2));
+        Color color = image[tempX + width / 2][tempY + height / 2];
+        System.out.println(color);
         return color;
     }
 
@@ -136,12 +143,15 @@ public class GlobeImage {
                 }
                 int degrees = (int) Math.toDegrees(angle);
                 degrees += 180;
+                Color color = new Color();
                 for (int i = 0; i < regions.size() + 1; i++) {
                     if (degrees <= degreesPerPart * i) {
-                        pixmap.setColor(regions.get(i - 1).color);
+                        color = (regions.get(i - 1).color);
                         break;
                     }
                 }
+                pixmap.setColor(color);
+                image[(int) tempX + width / 2][(int) tempY + height / 2].set(color.r, color.g, color.b, 1);
                 pixmap.drawPixel((int) tempX + width / 2, (int) tempY + height / 2);
 
             }
