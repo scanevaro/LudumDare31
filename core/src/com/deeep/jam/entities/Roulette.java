@@ -15,6 +15,7 @@ import java.util.Random;
 public class Roulette {
     private float turnTimer = 0;
     private float increaseAmount = 50;
+    private float prevIncreaseAmount = 100;
     private float increaseAmountTimer = 0;
     Sprite[] sprites;
     int[] shown;
@@ -39,9 +40,13 @@ public class Roulette {
 
     public void draw(SpriteBatch spriteBatch) {
         increaseAmountTimer += Gdx.graphics.getDeltaTime();
-        increaseAmount = -2 * (increaseAmountTimer * increaseAmountTimer) + 40;
-        turnTimer += increaseAmount * Gdx.graphics.getDeltaTime();
+        increaseAmount = (float) (0.05f * (Math.pow(increaseAmountTimer,6)) - 6f * increaseAmountTimer + 10);
+        if(increaseAmount>prevIncreaseAmount){
+            increaseAmount = 0;
+        }
+        turnTimer += increaseAmount*5 * Gdx.graphics.getDeltaTime();
         System.out.println("increaseAmount: " + increaseAmount + " " + turnTimer);
+        prevIncreaseAmount = increaseAmount;
         if (turnTimer >= 1) {
             Random random = new Random();
             turnTimer -= 1;
@@ -57,7 +62,8 @@ public class Roulette {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             increaseAmountTimer = 0;
             turnTimer = 0;
-            increaseAmount = 0;
+            increaseAmount = 50;
+            prevIncreaseAmount = 100;
             Random random = new Random();
             for (int i = 0; i < 5; i++) {
                 shown[i] = -1;
