@@ -2,12 +2,14 @@ package com.deeep.jam;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.deeep.jam.background.Space;
 import com.deeep.jam.entities.*;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
@@ -23,6 +25,7 @@ import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
  */
 public class World {
     public int score = 0;
+    private Space space;
     private Roulette roulette;
     private BitmapFont bitmapFont;
 
@@ -56,15 +59,7 @@ public class World {
         background.setY(-110F);
         background.setRotation(90F);
         damageTimer = 0;
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
-        difficulty.kill(globe, blobManager);
+        space = new Space(500);
         difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
 
@@ -76,6 +71,8 @@ public class World {
 
     public void update(float deltaT) {
         backgroundRotation = -globe.getAngleFacing();
+        //space.setRotation((float) Math.toDegrees(backgroundRotation));
+        space.update(deltaT);
         background.setRotation((float) Math.toDegrees(backgroundRotation));
         Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
@@ -141,8 +138,13 @@ public class World {
     }
 
     public void draw(SpriteBatch batch) {
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        sR.begin(ShapeRenderer.ShapeType.Filled);
+        space.draw(batch, sR);
+        sR.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
         batch.begin();
-        background.draw(batch);
         globe.draw(batch);
         roulette.draw(batch);
         bitmapFont.setScale(1);
@@ -152,6 +154,8 @@ public class World {
         bitmapFont.setScale(0.4f);
         bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512 - 25);
         batch.end();
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         sR.setAutoShapeType(true);
         sR.begin();
         Color color = new Color(0.9f, 0.4f, 0.2f, 1);
@@ -167,6 +171,7 @@ public class World {
         }
         blobManager.draw();
         sR.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
         batch.begin();
         powerBlobManager.draw(batch);
         if (damageTimer > 0) {
