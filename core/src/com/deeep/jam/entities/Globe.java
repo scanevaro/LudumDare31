@@ -44,10 +44,10 @@ public class Globe extends Entity {
     public void draw(SpriteBatch spriteBatch) {
         super.draw(spriteBatch);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            angleFacing += Gdx.graphics.getDeltaTime();
+            angleFacing += Gdx.graphics.getDeltaTime() *5;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            angleFacing -= Gdx.graphics.getDeltaTime();
+            angleFacing -= Gdx.graphics.getDeltaTime() *5;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             globeImage.clear();
@@ -62,6 +62,10 @@ public class Globe extends Entity {
         float rotation = (float) ((float) Math.atan2(deltaX, deltaY) + Math.PI/2);
         float distance = (float) Math.sqrt(deltaX*deltaX + deltaY * deltaY);
         globeImage.getColor((int) distance, rotation);
+    }
+
+    public Color getColor(float angle, float distance){
+        return globeImage.getColor((int) distance,angle);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class GlobeImage {
     private float rotation;
 
     public GlobeImage(float globeSize, float scale) {
-        this.globeSize = globeSize;
+        this.globeSize = globeSize - 1;
         this.width = 256;
         this.height = 256;
         this.scale = scale;
@@ -76,17 +76,17 @@ public class GlobeImage {
     }
 
     public Color getColor(int distance, float rotation) {
-        if(distance>globeSize*scale){
+        if (distance > globeSize * scale) {
             return null;
         }
         rotation += this.rotation;
-       // if(regions.size()%2!=0){
-            rotation+= Math.PI;
+        // if(regions.size()%2!=0){
+        rotation += Math.PI;
         //}
         int tempX = (int) (Math.cos(rotation) * 5);
         int tempY = (int) (Math.sin(rotation) * 5);
 
-        Color color = new Color(pixmap.getPixel(tempX + width/2,tempY+height/2));
+        Color color = new Color(pixmap.getPixel(tempX + width / 2, tempY + height / 2));
         System.out.println(color);
         return color;
     }
@@ -119,10 +119,10 @@ public class GlobeImage {
             }
         }
         pixmap.setColor(Color.BLACK);
-        pixmap.drawCircle(width/2,height/2, (int) globeSize);
-        pixmap.drawCircle(width/2,height/2, (int) globeSize-1);
-        pixmap.drawCircle(width/2,height/2, (int) globeSize-2);
-
+        pixmap.drawCircle(width / 2, height / 2, (int) globeSize);
+        pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 1);
+        pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 2);
+        pixmap.drawPixel((width - 1) / 2, (height - 1) / 2);
         Pixmap blurred = BlurUtils.blur(pixmap, 2, 2, false);
 
         Texture texture = new Texture(blurred);
