@@ -32,8 +32,6 @@ public class Globe extends Entity {
 
 
         pixmap = new Pixmap(128, 128, Pixmap.Format.RGBA4444);
-        pixmap.setColor(Color.BLACK);
-        pixmap.fill();
         pixmap.setColor(Color.WHITE);
         pixmap.fillCircle(64, 64, planetSize);
         sprite = new Sprite();
@@ -60,7 +58,6 @@ public class Globe extends Entity {
                 degrees += 180;
                 for (int i = 0; i < regions.size() + 1; i++) {
                     if (degrees <= degreesPerPart * i) {
-                        System.out.println("i: " + i + " degrees: " + degrees);
                         pixmap.setColor(regions.get(i-1).color);
                         break;
                     }
@@ -68,6 +65,12 @@ public class Globe extends Entity {
                 pixmap.drawPixel((int) tempX + 64, (int) tempY + 64);
 
             }
+        }
+        pixmap.setColor(Color.BLACK);
+        for(int i = 0;i<amountRegions; i++){
+            tempX = 64 + (float) (Math.cos(Math.toRadians(i* degreesPerPart)) * planetSize);
+            tempY = 64 + (float) (Math.sin(Math.toRadians(i* degreesPerPart)) * planetSize);
+            pixmap.drawLine(64,64,(int)tempX,(int)tempY);
         }
         texture = new Texture(pixmap);
         sprite.setTexture(texture);
