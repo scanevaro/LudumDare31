@@ -17,6 +17,7 @@ import com.deeep.jam.BlurUtils;
  */
 public class Globe extends Entity {
     private ArrayList<Region> regions = new ArrayList<Region>();
+    GlobeImage globeImage;
     private int amountRegions = 2;
     private float degreesPerPart = 360 / 2;
     private float angleFacing = 0;
@@ -29,8 +30,11 @@ public class Globe extends Entity {
         addRandomColour();
         addRandomColour();
         addRandomColour();
-        addRandomColour();
-
+        Random random = new Random();
+        globeImage = new GlobeImage(128,0.25f);
+        globeImage.addRegion(randomColour(random));
+        globeImage.addRegion(randomColour(random));
+        globeImage.addRegion(randomColour(random));
 
         pixmap = new Pixmap(256, 256, Pixmap.Format.RGBA4444);
         pixmap.setColor(Color.WHITE);
@@ -92,21 +96,22 @@ public class Globe extends Entity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         super.draw(spriteBatch);
-        sprite.setRotation((float) Math.toDegrees(angleFacing));
-        sprite.setScale(0.5f,0.5f);
-        sprite.setCenter(256, 256);
-        sprite.draw(spriteBatch);
+        //sprite.setRotation((float) Math.toDegrees(angleFacing));
+        //sprite.setScale(0.5f,0.5f);
+        //sprite.setCenter(256, 256);
+        //sprite.draw(spriteBatch);
+        globeImage.draw(spriteBatch,256,256, (float) Math.toDegrees(angleFacing));
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            angleFacing += Gdx.graphics.getDeltaTime() / 2;
+            angleFacing += Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            angleFacing -= Gdx.graphics.getDeltaTime() / 2;
+            angleFacing -= Gdx.graphics.getDeltaTime();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            regions.clear();
+            globeImage.clear();
             Random random = new Random();
             for(int i = 0, l = random.nextInt(4)+2; i<l; i++){
-                addRandomColour();
+                globeImage.addRegion(randomColour(random));
             }
             setSprite();
         }
