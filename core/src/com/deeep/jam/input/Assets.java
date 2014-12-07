@@ -103,6 +103,8 @@ public class Assets {
         incorrect = Gdx.audio.newSound(Gdx.files.internal("sound/knack.mp3"));
         power = Gdx.audio.newSound(Gdx.files.internal("sound/blob.mp3"));
         menu = Gdx.audio.newSound(Gdx.files.internal("sound/menu.wav"));
+        Sound music = Gdx.audio.newSound(Gdx.files.internal("music.mp3"));
+        music.loop(0.35f);
         /**
          * Ruwin files
          * start, game_over, new_highscore, quit, easy, keep_it_up, well_done, nice_going, wow, amazing, incredible, oh_my_god, multiplier_loss, angel_power, protection, points, hasta, healpower, blow, speed_slow, speed_fast;
