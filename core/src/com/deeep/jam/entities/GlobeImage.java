@@ -100,7 +100,7 @@ public class GlobeImage {
 
             }
         }
-        Pixmap blurred = BlurUtils.blur(pixmap, 2, 3, false);
+        Pixmap blurred = BlurUtils.blur(pixmap, 2, 2, false);
         Texture texture = new Texture(blurred);
         sprite.setTexture(texture);
         sprite = new Sprite(texture);
