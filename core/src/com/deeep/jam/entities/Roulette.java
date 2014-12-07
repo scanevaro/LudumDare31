@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.jam.World;
 import com.deeep.jam.input.Assets;
 
 import java.util.Collections;
@@ -15,17 +16,20 @@ import java.util.Random;
  */
 public class Roulette {
     Color color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
-    Color theOne = new Color();
     private float turnTimer = 0;
     private float increaseAmount = 50;
     private float prevIncreaseAmount = 100;
     private float increaseAmountTimer = 0;
     private float gotResult = 0;
-    private float flashResult = 0;
+    boolean given = false;
     Sprite[] sprites;
     int[] shown;
+    private World world;
+    private Globe globe;
 
-    public Roulette() {
+    public Roulette(World world, Globe globe) {
+        this.world = world;
+        this.globe = globe;
         shown = new int[5];
         sprites = new Sprite[10];
         sprites[0] = new Sprite(Assets.getAssets().getRegion("angel"));
@@ -48,26 +52,23 @@ public class Roulette {
         increaseAmountTimer += Gdx.graphics.getDeltaTime();
         increaseAmount = (float) (0.05f * (Math.pow(increaseAmountTimer, 6)) - 6f * increaseAmountTimer + 10);
         if (increaseAmount > prevIncreaseAmount) {
-            //Stijgende curve
+
             increaseAmount = 0;
             gotResult += Gdx.graphics.getDeltaTime();
             if (gotResult > 2) {
+                if(!given){
+                    System.out.println("Giving: " + shown[2]);
+                    given = true;
+                }
                 color.r = 1f;
                 color.b = 1f;
                 color.a = 0.4f;
-                theOne.r = 1f;
-                theOne.b = 1f;
-                theOne.a = 0.4f;
             }
         } else {
             color.r = 1f;
             color.b = 1f;
             color.g = 1;
             color.a = 1;
-            theOne.r = 1f;
-            theOne.b = 1f;
-            theOne.g = 1;
-            theOne.a = 1;
         }
         turnTimer += increaseAmount * 5 * Gdx.graphics.getDeltaTime();
         prevIncreaseAmount = increaseAmount;
@@ -83,64 +84,35 @@ public class Roulette {
             }
             shown[4] = temp;
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             newSession();
         }
-        int position = 0;
-
 
         for (int i = 0; i < 5; i++) {
-            if (increaseAmount == 0) {
-                if (gotResult < 2) {
-                    if (gotResult < 0.4) {
-                        if (shown[i] > 6) {
-                            //bad pickup
-                            theOne.r = 1f;
-                            theOne.b = 0.5f;
-                            theOne.g = 0.5f;
-                        } else {
-                            theOne.r = 0.5f;
-                            theOne.b = 0.5f;
-                            theOne.g = 1f;
-                        }
-                    } else if (gotResult < 0.8) {
-                        theOne.r = 0.9f;
-                        theOne.b = 0.9f;
-                        theOne.g = 0.9f;
-                    } else if (gotResult < 1.2) {
-                        if (shown[i] > 7) {
-                            //bad pickup
-                            theOne.r = 1f;
-                            theOne.b = 0.5f;
-                            theOne.g = 0.5f;
-                        } else {
-                            theOne.r = 0.5f;
-                            theOne.b = 0.5f;
-                            theOne.g = 1f;
-                        }
-                    } else if (gotResult < 1.6) {
-                        theOne.r = 0.9f;
-                        theOne.b = 0.9f;
-                        theOne.g = 0.9f;
-                    } else {
-                        if (shown[i] > 7) {
-                            //bad pickup
-                            theOne.r = 1f;
-                            theOne.b = 0.5f;
-                            theOne.g = 0.5f;
-                        } else {
-                            theOne.r = 0.5f;
-                            theOne.b = 0.5f;
-                            theOne.g = 1f;
-                        }
-                    }
-                }
-            }
+            color.r = 1f;
+            color.b = 1f;
+            color.g = 1;
             sprites[shown[i]].setColor(color);
             sprites[shown[i]].setScale(0.25f);
             if (i == 2) {
+                if (increaseAmount == 0) {
+                    if (gotResult < 2) {
+                        if (((int) (gotResult / 0.2f) % 2) == 1) {
+                            if (shown[i] > 6) {
+                                color.r = 1;
+                                color.g = 0.5f;
+                                color.b = 0.5f;
+                            } else {
+                                color.r = 0.5f;
+                                color.g = 1f;
+                                color.b = 0.5f;
+                            }
+                        }
+                    }
+                }
                 sprites[shown[i]].setScale(0.5f);
-                sprites[shown[i]].setColor(theOne);
+                sprites[shown[i]].setColor(color);
             }
 
         }
@@ -156,6 +128,7 @@ public class Roulette {
 
     public void newSession() {
         Random random = new Random();
+        given = false;
         gotResult = 0;
         increaseAmountTimer = 0;
         turnTimer = 0;

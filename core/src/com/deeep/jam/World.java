@@ -53,7 +53,7 @@ public class World {
         background.setRotation(90F);
         damageTimer = 0;
         difficulty.spawn(globe, blobManager);
-        roulette = new Roulette();
+        roulette = new Roulette(this,globe);
 
     }
 
