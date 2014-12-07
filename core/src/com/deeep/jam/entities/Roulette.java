@@ -93,7 +93,7 @@ public class Roulette {
             if (increaseAmount == 0) {
                 if (gotResult < 2) {
                     if (gotResult < 0.4) {
-                        if (shown[i] > 7) {
+                        if (shown[i] > 6) {
                             //bad pickup
                             theOne.r = 1f;
                             theOne.b = 0.5f;

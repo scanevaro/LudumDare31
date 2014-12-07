@@ -16,7 +16,7 @@ public class PowerBlob extends Entity{
 
     private Random random;
     private Sprite sprite;
-    public boolean isDead;
+    public boolean isDead = false;
     private float deathTimer;
 
     public PowerBlob(){
@@ -56,13 +56,15 @@ public class PowerBlob extends Entity{
 
     @Override
     public void update(float deltaT){
-        if(deathTimer < 30) isDead = true;
+        if(deathTimer < 30) {
+            isDead = true;
+        }
         if(isDead) return;
         deathTimer -= deltaT;
         sprite.setX(x);
         sprite.setY(y);
         sprite.setScale(0.5F, 0.5F);
-        sprite.setAlpha(130F/deathTimer);
+        sprite.setAlpha(deathTimer/130);
     }
 
 

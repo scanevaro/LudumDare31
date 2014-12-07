@@ -16,7 +16,7 @@ import java.util.Random;
 public class PowerBlobManager {
 
     public ArrayList<PowerBlob> powerBlobs = new ArrayList<PowerBlob>();
-    private long powerTimer;
+    private double powerTimer;
     private Random random;
 
     public PowerBlobManager(){
@@ -34,16 +34,17 @@ public class PowerBlobManager {
             }
         }
         powerBlobs.removeAll(removeBlobs);
-        if(powerTimer > 1){
+        if(powerTimer > 5){
             powerTimer = 0;
             spawnPowerBlob();
         }else{
-            powerTimer ++;
+            powerTimer +=deltaT;
+            //System.out.println(powerTimer);
         }
     }
 
     private void spawnPowerBlob() {
-        System.out.println("Spawned");
+        //System.out.println("Spawned");
         powerBlobs.add(new PowerBlob());
     }
 
