@@ -1,6 +1,7 @@
 package com.deeep.jam.input;
 
 import com.badlogic.gdx.InputProcessor;
+import com.deeep.jam.World;
 import com.deeep.jam.screens.GameScreen;
 
 /**
@@ -43,6 +44,9 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+        if (screen.world.state == World.GAMEOVER) return false;
+
         screen.world.globe.setAngleFacing((float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1));
 
         this.screenX = screenX;
@@ -53,6 +57,9 @@ public class GameInputProcessor implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+
+        if (screen.world.state == World.GAMEOVER) return false;
+
         screen.world.globe.setAngleFacing((float) (Math.atan2(screenX - 256, 512 - screenY - 256) * -1));
 
         this.screenX = screenX;
