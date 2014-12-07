@@ -123,9 +123,6 @@ public class World {
                 float adaptedY = 488 - Gdx.input.getY();
                 float dX = Math.abs(adaptedX - powerBlob.x);
                 float dY = Math.abs(adaptedY - powerBlob.y);
-                System.out.println(dX);
-                System.out.println(dY);
-                System.out.println("---");
                 if (dX <= 40 && dY <= 40) {
                     powerBlob.die();
                     Assets.getAssets().power.play();
@@ -157,8 +154,16 @@ public class World {
         batch.end();
         sR.setAutoShapeType(true);
         sR.begin();
+        Color color = new Color(0.9f, 0.4f, 0.2f, 1);
         for (Circle circle : circles) {
-            sR.circle(circle.x, circle.y, circle.radius);
+            for (int i = 0; i < 12; i++) {
+                color.a = 1 - ((float)i / 12);
+                color.r = 0.9f+ color.a/10;
+                color.g = 0.4f+ color.a/10;
+                color.b = 0.2f+ color.a/10;
+                sR.setColor(color);
+                sR.circle(circle.x, circle.y, circle.radius - i);
+            }
         }
         blobManager.draw();
         sR.end();

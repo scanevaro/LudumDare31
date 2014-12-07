@@ -13,9 +13,9 @@ import java.util.Random;
  */
 
 public class BlobManager {
-    private float speedUpTimer = 0;
+    private double speedUpTimer = 0;
     public int speedUps = 0;
-    private float speedDownTimer = 0;
+    private double speedDownTimer = 0;
     public int speedDowns = 0;
     public float generalSpeed = 1;
     public ArrayList<Blob> blobs = new ArrayList<Blob>();
