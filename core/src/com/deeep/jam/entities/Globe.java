@@ -25,6 +25,7 @@ public class Globe extends Entity {
     public boolean invincible = false;
     private float invincibleTimer = 0, armorTimer;
     private int armor;
+    private Sprite armorSprite;
 
     public Color color = new Color();
 
@@ -49,14 +50,9 @@ public class Globe extends Entity {
     }
 
     public Globe() {
-
-        Random random = new Random();
         globeImage = new GlobeImage(planetSize, 0.25f);
         globeImage.addRegion(Color.RED);
-        //globeImage.addRegion(Color.BLUE);
-        //globeImage.addRegion(Color.GREEN);
-        // globeImage.addRegion(Color.CYAN);
-
+        armorSprite = new Sprite(new Texture(Gdx.files.internal("shield.png")));
     }
 
     public Color randomColour() {
@@ -104,9 +100,8 @@ public class Globe extends Entity {
         int deltaY = 512 - Gdx.input.getY() - 256;
         int distance = (int) Math.sqrt(deltaX*deltaX + deltaY*deltaY);
         float rotation = (float) Math.atan2(deltaY,deltaX);
-        //System.out.println(globeImage.getColor((int) distance, rotation));
-        color = globeImage.getColor((int) distance, rotation);
-        //globeImage.getColor((int) Gdx.input.getX(), (int)(512-Gdx.input.getY()));
+        color = globeImage.getColor(distance, rotation);
+        if(armor != 0) armorSprite.draw(spriteBatch);
     }
 
     public Color getColor(float angle, float distance) {
