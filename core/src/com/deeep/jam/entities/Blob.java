@@ -12,7 +12,7 @@ import static com.deeep.jam.World.*;
  */
 public class Blob extends Entity {
 
-    //Theta ALWAYS in degrees
+    //Theta ALWAYS in radians
     public float v, d, theta;
 
     public Color color;
@@ -20,7 +20,7 @@ public class Blob extends Entity {
     public Blob (float d, float theta, float v){
         this.v = v;
         this.d = d;
-        this.theta = theta + 180;
+        this.theta = theta;
         calculatePosition();
         color = Color.RED;
     }
@@ -29,7 +29,7 @@ public class Blob extends Entity {
     public void update (float deltaT) {
         calculatePosition();
         d -= v * deltaT;
-        Assets.getAssets().pointsGained.loop();
+        //Assets.getAssets().pointsGained.loop();
     }
 
     public void draw () {
@@ -39,8 +39,8 @@ public class Blob extends Entity {
 
 
     private void calculatePosition() {
-        x = 256+(float) Math.cos(Math.toRadians(theta)) * d;
-        y = 256+(float) Math.sin(Math.toRadians(theta)) * d;
+        x = 256+(float) Math.cos((theta)) * d;
+        y = 256+(float) Math.sin((theta)) * d;
     }
 
 }

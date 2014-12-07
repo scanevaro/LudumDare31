@@ -12,6 +12,8 @@ import com.deeep.jam.entities.BlobManager;
 import com.deeep.jam.entities.Globe;
 import com.deeep.jam.screens.Core;
 
+import java.util.Random;
+
 import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
 
 /**
@@ -32,22 +34,33 @@ public class World {
         background.setX(-110F);
         background.setY(-110F);
         background.setRotation(90F);
-        blobManager.blobs.add(new Blob(200,45,40));
+        blobManager.blobs.add(new Blob(300, (float) 0, 80));
     }
 
     public void update(float deltaT) {
         Gdx.input.setCursorImage(getRotatedPixmap(new Pixmap(Gdx.files.internal("kappa.png")), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
-        for(Blob blob : blobManager.blobs){
-            Color color = globe.getColor(blob.theta, blob.d);
-            if(color==null){
+        Random random = new Random();
+        for (Blob blob : blobManager.blobs) {
+            Color color = globe.getColor((float) ((blob.theta)), blob.d);
+            if (color == null) {
                 //do nothing not colliding
-            }else {
-                if(color.equals(blob.color)){
+            } else {
+                System.out.println(color + " rotation: " + Math.toDegrees(blob.theta));
+                if (color.equals(blob.color)) {
                     System.out.println("Same!");
-                }else{
+                    blobManager.blobs.remove(blob);
+                    //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    blobManager.blobs.add(new Blob(300, (float) Math.PI+ 0.5f, 80));
+                    return;
+                } else {
                     System.out.println("Not same...!");
+                    blobManager.blobs.remove(blob);
+                    //blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat()*Math.PI*2), 20 + random.nextFloat() * 40));
+                    blobManager.blobs.add(new Blob(300, (float) 0, 80));
+                    return;
                 }
             }
         }

@@ -31,7 +31,8 @@ public class Globe extends Entity {
 
     }
 
-    public Color randomColour(Random random) {
+    public Color randomColour() {
+        Random random = new Random();
         Color color = new Color();
         color.a = 1;
         color.r = random.nextFloat();
@@ -53,7 +54,7 @@ public class Globe extends Entity {
             globeImage.clear();
             Random random = new Random();
             for (int i = 0, l = random.nextInt(4) + 2; i < l; i++) {
-                globeImage.addRegion(randomColour(random));
+                globeImage.addRegion(randomColour());
             }
         }
         globeImage.draw(spriteBatch, 256, 256, (float) Math.toDegrees(angleFacing));
@@ -66,6 +67,10 @@ public class Globe extends Entity {
 
     public Color getColor(float angle, float distance){
         return globeImage.getColor((int) distance,angle);
+    }
+
+    public GlobeImage getGlobeImage(){
+        return globeImage;
     }
 
     @Override
