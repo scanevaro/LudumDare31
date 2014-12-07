@@ -56,8 +56,8 @@ public class Roulette {
             increaseAmount = 0;
             gotResult += Gdx.graphics.getDeltaTime();
             if (gotResult > 2) {
-                if(!given){
-                    System.out.println("Giving: " + shown[2]);
+                if (!given) {
+                    actSession();
                     given = true;
                 }
                 color.r = 1f;
@@ -144,6 +144,48 @@ public class Roulette {
                 temp = random.nextInt(10);
             }
             shown[i] = temp;
+        }
+    }
+
+    private void actSession() {
+        switch (shown[2]) {
+            case 0:
+                //angel
+                break;
+            case 1:
+                //armor
+                break;
+            case 2:
+                //todo add effects
+                int size = world.blobManager.blobs.size();
+                world.blobManager.blobs.clear();
+                for(int i = 0; i<size; i++){
+                    world.difficulty.kill(globe,world.blobManager);
+                }
+                break;
+            case 3:
+                world.damageTimer = 0;
+                break;
+            case 4:
+                world.difficulty.multiplier++;
+                break;
+            case 5:
+                world.difficulty.score += world.difficulty.score/10;
+                break;
+            case 6:
+                world.blobManager.speedDowns++;
+                break;
+            case 7:
+                //shockwave
+                break;
+            case 8:
+                world.blobManager.speedUps++;
+                //speedUp
+                break;
+            case 9:
+                globe.freeze();
+                //freeze
+                break;
         }
     }
 

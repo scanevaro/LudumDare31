@@ -17,8 +17,30 @@ import java.util.Random;
  */
 public class Globe extends Entity {
     GlobeImage globeImage;
-    public float angleFacing = 0;
+    private float angleFacing = 0;
     private int planetSize = 128;
+    private float freezeAngle;
+    private boolean frozen = false;
+    private float freezeTimer = 0;
+
+    public void setAngleFacing(float angleFacing){
+        if(frozen)
+            this.angleFacing = freezeAngle;
+        else
+            this.angleFacing = angleFacing;
+    }
+
+    public float getAngleFacing(){
+        if(frozen){
+            return freezeAngle;
+        }
+        return angleFacing;
+    }
+
+    public void freeze() {
+        freezeAngle = getAngleFacing();
+        frozen = true;
+    }
 
     public Globe() {
 
@@ -27,7 +49,7 @@ public class Globe extends Entity {
         globeImage.addRegion(Color.RED);
         //globeImage.addRegion(Color.BLUE);
         //globeImage.addRegion(Color.GREEN);
-       // globeImage.addRegion(Color.CYAN);
+        // globeImage.addRegion(Color.CYAN);
 
     }
 
@@ -45,10 +67,10 @@ public class Globe extends Entity {
     public void draw(SpriteBatch spriteBatch) {
         super.draw(spriteBatch);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            angleFacing += Gdx.graphics.getDeltaTime() *5;
+            setAngleFacing(getAngleFacing()+ Gdx.graphics.getDeltaTime() * 5);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            angleFacing -= Gdx.graphics.getDeltaTime() *5;
+            setAngleFacing(getAngleFacing()- Gdx.graphics.getDeltaTime() * 5);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             globeImage.clear();
@@ -57,20 +79,27 @@ public class Globe extends Entity {
                 globeImage.addRegion(randomColour());
             }
         }
+        if(frozen){
+            freezeTimer+=Gdx.graphics.getDeltaTime();
+            if(freezeTimer>=2){
+                frozen = false;
+                freezeTimer = 0;
+            }
+        }
         globeImage.draw(spriteBatch, 256, 256, (float) Math.toDegrees(angleFacing));
         int deltaX = Gdx.input.getX() - 256;
-        int deltaY = 512- Gdx.input.getY() - 256;
-        float rotation = (float) ((float) Math.atan2(deltaX, deltaY) + Math.PI/2);
-        float distance = (float) Math.sqrt(deltaX*deltaX + deltaY * deltaY);
-        //System.out.println(globeImage.getColor((int) distance, rotation));
+        int deltaY = 512 - Gdx.input.getY() - 256;
+        int distance = (int) Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+        float rotation = (float) Math.atan2(deltaY,deltaX);
+        System.out.println(globeImage.getColor((int) distance, rotation));
         //globeImage.getColor((int) Gdx.input.getX(), (int)(512-Gdx.input.getY()));
     }
 
-    public Color getColor(float angle, float distance){
-        return globeImage.getColor((int) distance,angle);
+    public Color getColor(float angle, float distance) {
+        return globeImage.getColor((int) distance, angle);
     }
 
-    public GlobeImage getGlobeImage(){
+    public GlobeImage getGlobeImage() {
         return globeImage;
     }
 

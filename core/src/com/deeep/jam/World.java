@@ -28,9 +28,9 @@ public class World {
     public BlobManager blobManager;
     PowerBlobManager powerBlobManager;
 
-    private int damageTimer;
+    public int damageTimer;
     private float backgroundRotation;
-    private Difficulty difficulty;
+    public Difficulty difficulty;
 
     public Sprite background;
     public Sprite warningOverlay;
@@ -58,7 +58,7 @@ public class World {
     }
 
     public void update(float deltaT) {
-        backgroundRotation = -globe.angleFacing;
+        backgroundRotation = -globe.getAngleFacing();
         background.setRotation((float) Math.toDegrees(backgroundRotation));
         Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);

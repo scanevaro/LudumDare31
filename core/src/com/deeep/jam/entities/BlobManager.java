@@ -13,32 +13,52 @@ import java.util.Random;
  */
 
 public class BlobManager {
+    private float speedUpTimer = 0;
+    public int speedUps = 0;
+    private float speedDownTimer = 0;
+    public int speedDowns = 0;
+    public float generalSpeed = 1;
+    public ArrayList<Blob> blobs = new ArrayList<Blob>();
 
-        public ArrayList<Blob> blobs = new ArrayList<Blob>();
+    public BlobManager() {
+    }
 
-        public BlobManager(){
-        }
-
-        public void update(float deltaT){
-
-            ListIterator iT = blobs.listIterator();
-            ArrayList<Blob> removeBlobs= new ArrayList<Blob>();
-            while (iT.hasNext()){
-                Blob blob = (Blob) iT.next();
-                blob.update(deltaT);
-                if(blob.isDead){
-                    removeBlobs.add(blob);
-                }
-            }
-            blobs.removeAll(removeBlobs);
-        }
-
-    public void draw(){
-            ListIterator iT = blobs.listIterator();
-            while (iT.hasNext()){
-                Blob blob = (Blob) iT.next();
-                blob.draw();
+    public void update(float deltaT) {
+        if (speedUps > 0) {
+            speedUpTimer += deltaT;
+            if (speedUpTimer >= 4) {
+                speedUpTimer = 0;
+                generalSpeed -= 0.5f;
+                speedUps--;
             }
         }
+        if (speedDowns > 0) {
+            speedDownTimer += deltaT;
+            if (speedDownTimer >= 4) {
+                speedDownTimer = 0;
+                generalSpeed += 0.5f;
+                speedDowns--;
+            }
+        }
+
+        ListIterator iT = blobs.listIterator();
+        ArrayList<Blob> removeBlobs = new ArrayList<Blob>();
+        while (iT.hasNext()) {
+            Blob blob = (Blob) iT.next();
+            blob.update(deltaT * generalSpeed);
+            if (blob.isDead) {
+                removeBlobs.add(blob);
+            }
+        }
+        blobs.removeAll(removeBlobs);
+    }
+
+    public void draw() {
+        ListIterator iT = blobs.listIterator();
+        while (iT.hasNext()) {
+            Blob blob = (Blob) iT.next();
+            blob.draw();
+        }
+    }
 
 }
