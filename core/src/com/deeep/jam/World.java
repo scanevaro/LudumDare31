@@ -74,12 +74,6 @@ public class World {
         space = new Space(500);
         //difficulty.spawn(globe, blobManager);
         roulette = new Roulette(this, globe);
-        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
-        difficulty.colors.remove(0);
-        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
-        difficulty.colors.remove(0);
-        globe.getGlobeImage().addRegion(difficulty.colors.get(0));
-        difficulty.colors.remove(0);
 
     }
 
@@ -120,7 +114,7 @@ public class World {
                         difficulty.kill(globe, blobManager);
                         Assets.getAssets().pointsGained.play();
                         blob.die();
-                    }else{
+                    } else {
                         blob.die();
                         difficulty.playerHit(globe, blobManager);
                         damageTimer += 100;
@@ -146,7 +140,8 @@ public class World {
         if (damageTimer >= 1000) {
             gameOver();
         }
-        difficulty.spawn(globe, blobManager);
+        if (!menu.show)
+            difficulty.spawn(globe, blobManager);
     }
 
     private void gameOver() {
