@@ -158,7 +158,7 @@ public class Roulette {
             case 1:
                 //armor
                 globe.armor();
-                switch (soundRandomizer){ case 1: Assets.getAssets().protection1.play(); break; case 2: Assets.getAssets().protection2.play(); break;case 3: Assets.getAssets().protection3.play(); break;}
+                switch (soundRandomizer){ case 1: Assets.getAssets().protection3.play(); break; case 2: Assets.getAssets().protection2.play(); break;case 3: Assets.getAssets().protection3.play(); break;}
                 break;
             case 2:
                 //todo add effects
@@ -177,6 +177,7 @@ public class Roulette {
                 break;
             case 4:
                 world.difficulty.multiplier+=5;
+                switch (soundRandomizer){ case 1: Assets.getAssets().points1.play(); break; case 2: Assets.getAssets().points2.play(); break;case 3: Assets.getAssets().points3.play(); break;}
                 break;
             case 5:
                 world.difficulty.score *= 1.1;
