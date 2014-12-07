@@ -105,7 +105,7 @@ public class Globe extends Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             regions.clear();
             Random random = new Random();
-            for(int i = 0, l = random.nextInt(6)+1; i<l; i++){
+            for(int i = 0, l = random.nextInt(4)+2; i<l; i++){
                 addRandomColour();
             }
             setSprite();
