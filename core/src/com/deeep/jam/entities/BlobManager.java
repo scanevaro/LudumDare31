@@ -3,6 +3,7 @@ package com.deeep.jam.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Random;
@@ -24,10 +25,15 @@ public class BlobManager {
 
         public void update(float deltaT){
             ListIterator iT = blobs.listIterator();
+            ArrayList<Blob> removeBlobs= new ArrayList<Blob>();
             while (iT.hasNext()){
                 Blob blob = (Blob) iT.next();
                 blob.update(deltaT);
+                if(blob.isDead){
+                    removeBlobs.add(blob);
+                }
             }
+            blobs.removeAll(removeBlobs);
         }
 
         public void draw(){

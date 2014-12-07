@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.deeep.jam.entities.Blob;
 import com.deeep.jam.entities.BlobManager;
+import com.deeep.jam.entities.Difficulty;
 import com.deeep.jam.entities.Globe;
 import com.deeep.jam.input.Assets;
 import com.deeep.jam.screens.Core;
@@ -20,6 +21,7 @@ import static com.deeep.jam.PixmapRotater.getRotatedPixmap;
  * Created by Andreas on 05/12/2014.
  */
 public class World {
+    public static int score = 0;
 
     public static Globe globe;
     public static ShapeRenderer sR = Core.shapeRenderer;
@@ -27,6 +29,7 @@ public class World {
 
     private int damageTimer;
     private float backgroundRotation;
+    private Difficulty difficulty;
 
     public static Sprite background;
     public static Sprite warningOverlay;
@@ -36,6 +39,7 @@ public class World {
      */
 
     public World() {
+        difficulty = new Difficulty();
         globe = new Globe();
         blobManager = new BlobManager();
         background = new Sprite(new Texture(Gdx.files.internal("background.png")));
@@ -44,40 +48,34 @@ public class World {
         background.setY(-110F);
         background.setRotation(90F);
         damageTimer = 0;
-        blobManager.blobs.add(new Blob(300, (float) 0, 80, globe.getGlobeImage().getRandomColor()));
+        difficulty.spawn(globe);
+
     }
 
     public void update(float deltaT) {
-        backgroundRotation += 2F;
-        if (backgroundRotation >= 360) backgroundRotation = 0;
-        background.setRotation(backgroundRotation);
+        backgroundRotation = -globe.angleFacing;
+        background.setRotation((float) Math.toDegrees(backgroundRotation));
         Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
         globe.update(deltaT);
         blobManager.update(deltaT);
         Random random = new Random();
         for (Blob blob : blobManager.blobs) {
-            float angle = (float) ((float) Math.atan2(blob.x - 256, blob.y - 256) + Math.PI / 2);
-            int distance = (int) blob.d;
-            Color color = globe.getColor(angle, distance);
-            if (color == null) {
-                //do nothing not colliding
-            } else {
-                if (color.equals(blob.color)) {
-                    System.out.println("Same!");
-                    blobManager.blobs.remove(blob);
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat() * Math.PI * 2), 20 + random.nextFloat() * 40, globe.getGlobeImage().getRandomColor()));
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat() * Math.PI * 2), 20 + random.nextFloat() * 40, globe.getGlobeImage().getRandomColor()));
-                    //blobManager.blobs.add(new Blob(300, (float) Math.PI + 0.5f, 80));
-                    Assets.getAssets().pointsGained.play();
-                    return;
+            if (!blob.isDead) {
+                float angle = (float) ((float) Math.atan2(blob.x - 256, blob.y - 256) + Math.PI / 2);
+                int distance = (int) blob.d;
+                Color color = globe.getColor(angle, distance);
+                if (color == null) {
+                    //do nothing not colliding
                 } else {
-                    System.out.println("Not same...!");
-                    System.out.println("Blob: " + blob.color + " Region: " + color);
-                    blobManager.blobs.remove(blob);
-                    blobManager.blobs.add(new Blob(random.nextInt(60) + 320, (float) (random.nextFloat() * Math.PI * 2), 20 + random.nextFloat() * 40, globe.getGlobeImage().getRandomColor()));
-                    //blobManager.blobs.add(new Blob(300, (float) 0, 80));
-                    damageTimer += 100;
-                    return;
+                    blob.die();
+                    if (color.equals(blob.color)) {
+                        difficulty.kill(globe);
+                        return;
+                    } else {
+                        difficulty.playerHit(globe);
+                        damageTimer += 100;
+                        return;
+                    }
                 }
             }
         }

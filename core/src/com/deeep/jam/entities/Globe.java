@@ -25,7 +25,7 @@ public class Globe extends Entity {
         Random random = new Random();
         globeImage = new GlobeImage(planetSize, 0.25f);
         globeImage.addRegion(Color.RED);
-        globeImage.addRegion(Color.BLUE);
+        //globeImage.addRegion(Color.BLUE);
         //globeImage.addRegion(Color.GREEN);
        // globeImage.addRegion(Color.CYAN);
 
