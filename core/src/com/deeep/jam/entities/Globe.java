@@ -24,7 +24,7 @@ public class Globe extends Entity {
     private float freezeTimer = 0;
     public boolean invincible = false;
     private float invincibleTimer = 0, armorTimer;
-    private int armor;
+    public int armor;
     private Sprite armorSprite;
 
     public Color color = new Color();
@@ -53,6 +53,7 @@ public class Globe extends Entity {
         globeImage = new GlobeImage(planetSize, 0.25f);
         globeImage.addRegion(Color.RED);
         armorSprite = new Sprite(new Texture(Gdx.files.internal("shield.png")));
+        armorSprite.setCenter(256, 256);
     }
 
     public Color randomColour() {
@@ -115,7 +116,7 @@ public class Globe extends Entity {
     @Override
     public void update(float deltaT) {
         super.update(deltaT);
-        if(armorTimer > 0) armor --;
+        if(armorTimer > 0) armorTimer --;
         if(armorTimer == 0) armor = 0;
     }
 

@@ -110,16 +110,23 @@ public class World {
                 if (color == null) {
                     //do nothing not colliding
                 } else {
-                    if (color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b) {
-                        difficulty.kill(globe, blobManager);
-                        Assets.getAssets().pointsGained.play();
+                    if(globe.armor != 0){
+                        if (color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b) {
+                            difficulty.kill(globe, blobManager);
+                            Assets.getAssets().pointsGained.play();
+                            blob.die();
+                        } else {
+                            blob.die();
+                            difficulty.playerHit(globe, blobManager);
+                            damageTimer += 100;
+                            Assets.getAssets().incorrect.play();
+                        }
+                    }else{
                         blob.die();
-                    } else {
-                        blob.die();
-                        difficulty.playerHit(globe, blobManager);
-                        damageTimer += 100;
-                        Assets.getAssets().incorrect.play();
+                        Assets.getAssets().pling.play();
+                        globe.armor --;
                     }
+
                 }
             }
         }

@@ -47,7 +47,7 @@ public class Assets {
 
     public Sound pointsGained;
     public Sound incorrect;
-    public Sound power;
+    public Sound power, pling;
     public Sound menu, ice;
     public Sound start1, game_over1, new_highscore1, quit1, easy1, keep_it_up1, well_done1, nice_going1, wow1, amazing1, incredible1, oh_my_god1, multiplier_loss1, angel_power1, protection1, points1, hasta1, healpower1, blow1, speed_slow1, speed_fast1;
     public Sound start2, game_over2, new_highscore2, quit2, easy2, keep_it_up2, well_done2, nice_going2, wow2, amazing2, incredible2, oh_my_god2, multiplier_loss2, angel_power2, protection2, points2, hasta2, healpower2, blow2, speed_slow2, speed_fast2;
@@ -104,6 +104,8 @@ public class Assets {
         power = Gdx.audio.newSound(Gdx.files.internal("sound/blob.mp3"));
         menu = Gdx.audio.newSound(Gdx.files.internal("sound/menu.wav"));
         Sound music = Gdx.audio.newSound(Gdx.files.internal("music.mp3"));
+        pling = Gdx.audio.newSound(Gdx.files.internal("sound/pling.mp3"));
+        ice = Gdx.audio.newSound(Gdx.files.internal("sound/ice.mp3"));
         music.loop(0.35f);
         /**
          * Ruwin files
@@ -172,7 +174,6 @@ public class Assets {
         blow3 = Gdx.audio.newSound(Gdx.files.internal("sound/blow3.mp3"));
         speed_slow3 = Gdx.audio.newSound(Gdx.files.internal("sound/notsoquickly3.mp3"));
         speed_fast3 = Gdx.audio.newSound(Gdx.files.internal("sound/speedup3.mp3"));
-        ice = Gdx.audio.newSound(Gdx.files.internal("sound/ice.mp3"));
     }
 
     public Sprite getBlankSprite() {
