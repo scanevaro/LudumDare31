@@ -182,7 +182,6 @@ public class Roulette {
                 }
                 break;
             case 2:
-                //todo add effects
                 world.explosionTimer = 100;
                 int size = world.blobManager.blobs.size();
                 world.blobManager.blobs.clear();
