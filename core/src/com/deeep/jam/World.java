@@ -27,43 +27,37 @@ import java.util.ArrayList;
  * Created by Andreas on 05/12/2014.
  */
 public class World {
+    public static final int PLAYING = 0;
+    public static final int GAMEOVER = 1;
+    private static final float time = 0.5f, delay = 0.2f;
     public int score = 0;
-    private Space space;
-    private Roulette roulette;
-    private BitmapFont bitmapFont;
-
     public Globe globe;
     public ShapeRenderer sR = Core.shapeRenderer;
     public BlobManager blobManager;
-    PowerBlobManager powerBlobManager;
-
     public int damageTimer;
     public int healTimer;
     public int frostTimer;
     public int explosionTimer;
-    private float backgroundRotation;
     public Difficulty difficulty;
-
     public Sprite background;
     public Sprite warningOverlay;
     public Sprite healOverlay;
     public Sprite frostOverlay;
     public Sprite explosionOverlay;
+    public int state;
+    PowerBlobManager powerBlobManager;
+    private Space space;
+    private Roulette roulette;
+    private BitmapFont bitmapFont;
+    private float backgroundRotation;
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private Menu menu;
-
-
-    public int state;
-    public static final int PLAYING = 0;
-    public static final int GAMEOVER = 1;
-
     private Stage stage;
     private TextButton[] gameOverListChar;
     private TextButton[] scoreLabelChar;
     private TextButton[] scoreChar;
     private FloatArray post1, advances1, post2, advances2, post3, advances3;
     private String gamesOverText, scoreLabelText, scoreText;
-    private static final float time = 0.5f, delay = 0.2f;
     private TextButton.TextButtonStyle style;
 
     /**
@@ -227,7 +221,7 @@ public class World {
                         if (color == null) {
                             //do nothing not colliding
                         } else {
-                            if(globe.armor == 0){
+                            if (globe.armor == 0) {
                                 if (color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b) {
                                     difficulty.kill(globe, blobManager);
                                     Assets.getAssets().pointsGained.play();
@@ -239,18 +233,18 @@ public class World {
                                         Assets.getAssets().pointsGained.play();
                                     } else {
                                         difficulty.playerHit(globe, blobManager);
-                                        damageTimer += 100;
+                                        damageTimer += 200;
                                         Assets.getAssets().incorrect.play();
                                     }
                                     blob.die();
                                 }
-                            }else {
-                                globe.armor --;
+                            } else {
+                                globe.armor--;
                                 Assets.getAssets().pling.play();
                                 blob.die();
                             }
-
                         }
+
                     }
                 }
                 for (PowerBlob powerBlob : powerBlobManager.powerBlobs) {
@@ -270,7 +264,7 @@ public class World {
                 if (damageTimer >= 1000)
                     gameOver();
 
-                    difficulty.spawn(globe, blobManager);
+                difficulty.spawn(globe, blobManager);
                 break;
             case GAMEOVER:
                 stage.act();
@@ -344,7 +338,7 @@ public class World {
         powerBlobManager.draw(batch);
         if (damageTimer > 0) {
             damageTimer--;
-            warningOverlay.setAlpha(damageTimer * 0.002F);
+            warningOverlay.setAlpha(damageTimer * 0.001F);
             warningOverlay.draw(batch);
         }
         if (healTimer > 0) {

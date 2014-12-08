@@ -13,14 +13,13 @@ import com.deeep.jam.input.Assets;
  * Created by E on 12/7/2014.
  */
 public class Menu {
+    public World world;
+    public boolean show = true;
+    BitmapFont bitmapFont;
+    MenuOption menuOption;
     private float menuEffect = 0;
     private boolean doneEffect = false;
     private boolean doingEffect = false;
-    BitmapFont bitmapFont;
-    public World world;
-    public boolean show = true;
-
-    MenuOption menuOption;
 
     public Menu(World world) {
         this.world = world;
@@ -124,11 +123,11 @@ public class Menu {
 
             }
             if (menuEffect >= 512) {
-                if(selected == play)
-                show = true;
-                else if (selected == about){
+                if (selected == play)
+                    show = true;
+                else if (selected == about) {
                     Gdx.net.openURI("http://deeepgames.com/about");
-                }else if (selected == quite){
+                } else if (selected == quite) {
 
                 }
             }
@@ -172,12 +171,12 @@ public class Menu {
         class Letter {
             public float offsetY;
             public float offsetX;
-            private float x, y;
             public float ownRotation;
-            Sprite sprite;
             public char character;
             public int index = 0;
             public float redTimer = 1;
+            Sprite sprite;
+            private float x, y;
             private Color color = new Color(1, 1, 1, 1);
             private boolean previousShown = false;
 
