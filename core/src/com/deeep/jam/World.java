@@ -194,7 +194,7 @@ public class World {
     }
 
     public void update(float deltaT) {
-        System.out.println("State: " + state + " enemies alive: " + blobManager.blobs.size());
+        System.out.println(blobManager.blobs.size() + " : " + difficulty.maxEnemiesAlive);
         switch (state) {
             case PLAYING:
                 space.update(deltaT);
@@ -241,6 +241,7 @@ public class World {
                             } else {
                                 globe.armor--;
                                 Assets.getAssets().pling.play();
+                                difficulty.enemiesAlive--;
                                 blob.die();
                             }
                         }
