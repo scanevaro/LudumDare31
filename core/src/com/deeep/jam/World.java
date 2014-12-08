@@ -227,22 +227,29 @@ public class World {
                         if (color == null) {
                             //do nothing not colliding
                         } else {
-                            if (color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b) {
-                                difficulty.kill(globe, blobManager);
-                                Assets.getAssets().pointsGained.play();
-                                blob.die();
-                            } else {
-                                if (globe.angelBlock > 0) {
-                                    globe.angelBlock--;
+                            if(globe.armor == 0){
+                                if (color.r == blob.color.r && color.g == blob.color.g && color.b == blob.color.b) {
                                     difficulty.kill(globe, blobManager);
                                     Assets.getAssets().pointsGained.play();
+                                    blob.die();
                                 } else {
-                                    difficulty.playerHit(globe, blobManager);
-                                    damageTimer += 100;
-                                    Assets.getAssets().incorrect.play();
+                                    if (globe.angelBlock > 0) {
+                                        globe.angelBlock--;
+                                        difficulty.kill(globe, blobManager);
+                                        Assets.getAssets().pointsGained.play();
+                                    } else {
+                                        difficulty.playerHit(globe, blobManager);
+                                        damageTimer += 100;
+                                        Assets.getAssets().incorrect.play();
+                                    }
+                                    blob.die();
                                 }
+                            }else {
+                                globe.armor --;
+                                Assets.getAssets().pling.play();
                                 blob.die();
                             }
+
                         }
                     }
                 }

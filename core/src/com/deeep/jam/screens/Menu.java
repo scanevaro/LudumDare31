@@ -127,7 +127,7 @@ public class Menu {
                 if(selected == play)
                 show = true;
                 else if (selected == about){
-
+                    Gdx.net.openURI("http://deeepgames.com/about");
                 }else if (selected == quite){
 
                 }
