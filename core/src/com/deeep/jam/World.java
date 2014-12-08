@@ -68,7 +68,7 @@ public class World {
         instantiate();
     }
 
-    private void instantiate() {
+    public void instantiate() {
         Assets.getAssets().loadBitmapFont();
         bitmapFont = Assets.getAssets().getBitmapFont();
         menu = new Menu(this);

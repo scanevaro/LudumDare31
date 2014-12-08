@@ -128,6 +128,7 @@ public class Menu {
                     show = true;
                 else if (selected == about) {
                     Gdx.net.openURI("http://deeepgames.com/about");
+                    world.instantiate();
                 } else if (selected == quite) {
                     Gdx.app.exit();
                 } else if (selected == highScores) {
