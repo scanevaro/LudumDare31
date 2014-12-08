@@ -234,7 +234,7 @@ public class Roulette {
                 }
                 break;
             case 4:
-                world.difficulty.multiplier += 5;
+                world.difficulty.incrementMultiplier(5);
                 switch (soundRandomizer) {
                     case 1:
                         Assets.getAssets().points1.play();

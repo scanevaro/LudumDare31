@@ -306,7 +306,7 @@ public class World {
             bitmapFont.draw(batch, "Score: " + difficulty.score, 10, 512 - 5);
             int tempY = (int) bitmapFont.getLineHeight();
             bitmapFont.setScale(0.5f);
-            bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 10, 512 - 10 - tempY + bitmapFont.getLineHeight());
+            bitmapFont.draw(batch, "Multiplier: " + difficulty.getMultiplier() + "x", 10, 512 - 10 - tempY + bitmapFont.getLineHeight());
             bitmapFont.setScale(0.4f);
             bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512 - 25);
 
