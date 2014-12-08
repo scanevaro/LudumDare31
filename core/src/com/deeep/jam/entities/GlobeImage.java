@@ -144,11 +144,15 @@ public class GlobeImage {
 
             }
         }
-        pixmap.setColor(Color.WHITE);
-        pixmap.drawCircle(width / 2, height / 2, (int) globeSize);
-        pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 1);
-        pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 2);
-        pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 3);
+        Color color = Color.WHITE;
+
+        for (int i = 0; i < 8; i++) {
+            color.r = 1 - i / 8f;
+            color.g = 1 - i / 8f;
+            color.b = 1 - i / 8f;
+            pixmap.setColor(color);
+            pixmap.drawCircle(width / 2, height / 2, (int) globeSize - 4 + i);
+        }
         pixmap.drawPixel((width - 1) / 2, (height - 1) / 2);
         pixmap.setFilter(Pixmap.Filter.NearestNeighbour);
 

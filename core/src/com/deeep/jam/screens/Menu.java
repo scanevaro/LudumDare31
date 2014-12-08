@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deeep.jam.World;
 import com.deeep.jam.input.Assets;
 
+import java.util.Random;
+
 /**
  * Created by E on 12/7/2014.
  */
@@ -86,6 +88,18 @@ public class Menu {
                     selected = play;
                     doingEffect = true;
                     world.difficulty.maxEnemiesAlive++;
+                    Random random = new Random();
+                    switch (random.nextInt(2) + 1){
+                        case 1:
+                            Assets.getAssets().start1.play();
+                            break;
+                        case 2:
+                            Assets.getAssets().start2.play();
+                            break;
+                        case 3:
+                            Assets.getAssets().start3.play();
+                            break;
+                    }
                     return;
                 }
                 temp = true;
