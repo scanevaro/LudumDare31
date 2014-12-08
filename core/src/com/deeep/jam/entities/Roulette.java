@@ -261,7 +261,6 @@ public class Roulette {
                 }
                 break;
             case 7:
-                //shockwave
                 world.shockwave();
                 switch (soundRandomizer) {
                     case 1:

@@ -62,22 +62,18 @@ public class GlobeImage {
 
     public void addRegion(Color color) {
         regions.add(new Region(color));
-        System.out.println("Size: " + regions.size());
         calculatePixmap();
     }
 
     public void removeRegion(int index) {
-        System.out.println("Found region");
         regions.remove(index);
         calculatePixmap();
     }
 
     public void removeRegion(Color color) {
         for (Region region : regions) {
-            System.out.println(color + " - " + region.color);
             if (region.color.equals(color)) {
                 regions.remove(region);
-                System.out.println("Found region");
                 break;
             }
         }
@@ -87,9 +83,6 @@ public class GlobeImage {
     public Color getRandomColor() {
         Random random = new Random();
         Color color = new Color(regions.get(random.nextInt(regions.size())).color);
-        //System.out.println(color);
-        //color.rgba8888(regions.get(random.nextInt(regions.size())).color);
-        //System.out.println(color);
         return color;
     }
 
@@ -101,7 +94,6 @@ public class GlobeImage {
             return null;
         }
         float otherRotation = (float) ((float) Math.atan2(y, x) + Math.PI);
-        System.out.println("otherRotation: " + otherRotation);
         int tempX = (int) (Math.cos(otherRotation) * distance);
         int tempY = (int) (Math.sin(otherRotation) * distance);
 
@@ -114,15 +106,11 @@ public class GlobeImage {
             return null;
         }
         rotation += this.rotation;
-        // if(regions.size()%2!=0){
         rotation += Math.PI;
-        //}
         int tempX = (int) (Math.cos(rotation) * distance);
         int tempY = (int) (Math.sin(rotation) * distance);
 
-        //Color color = new Color(pixmap.getPixel(tempX + width / 2, tempY + height / 2));
         Color color = image[tempX + width / 2][tempY + height / 2];
-        System.out.println(color);
         return color;
     }
 
