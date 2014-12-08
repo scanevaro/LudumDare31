@@ -132,6 +132,7 @@ public class World {
     }
 
     private void resetText() {
+
         for (int i = 0; i < gamesOverText.length(); i++) {
             gameOverListChar[i].setPosition(110 + post1.get(i), 330);
             gameOverListChar[i].setOrigin(advances1.get(i) / 2, gameOverListChar[i].getHeight() / 4);
@@ -199,6 +200,7 @@ public class World {
     }
 
     public void update(float deltaT) {
+        System.out.println("State: " + state + " enemies alive: " + blobManager.blobs.size());
         switch (state) {
             case PLAYING:
                 //backgroundRotation = -globe.getAngleFacing();
@@ -265,7 +267,6 @@ public class World {
                 if (damageTimer >= 1000)
                     gameOver();
 
-                if (!menu.show)
                     difficulty.spawn(globe, blobManager);
                 break;
             case GAMEOVER:
@@ -310,11 +311,7 @@ public class World {
             bitmapFont.draw(batch, "Multiplier: " + difficulty.multiplier + "x", 10, 512 - 10 - tempY + bitmapFont.getLineHeight());
             bitmapFont.setScale(0.4f);
             bitmapFont.draw(batch, "" + difficulty.consecutive, 512 - 25, 512 - 25);
-            if (globe.color != null) {
-                bitmapFont.draw(batch, "r: " + globe.color.r, 10, 15);
-                bitmapFont.draw(batch, "g: " + globe.color.g, 10, 15 + bitmapFont.getLineHeight());
-                bitmapFont.draw(batch, "b: " + globe.color.b, 10, 15 + +bitmapFont.getLineHeight() + bitmapFont.getLineHeight());
-            }
+
         }
 
         batch.end();

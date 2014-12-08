@@ -17,11 +17,11 @@ import java.util.Random;
 public class Roulette {
     Color color = new Color(0.8f, 0.8f, 0.8f, 0.5f);
     private float turnTimer = 0;
-    private float increaseAmount = 50;
-    private float prevIncreaseAmount = 100;
+    private float increaseAmount = 100;
+    private float prevIncreaseAmount = 40;
     private float increaseAmountTimer = 0;
     private float gotResult = 0;
-    boolean given = false;
+    boolean given = true;
     Sprite[] sprites;
     int[] shown;
     private World world;

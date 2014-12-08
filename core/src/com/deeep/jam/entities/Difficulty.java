@@ -15,7 +15,7 @@ public class Difficulty {
     public int kills = 0;
     public int consecutive;
     public int killsToDifficult = 1;
-    private int maxEnemiesAlive = 1;
+    public int maxEnemiesAlive = 0;
     private int enemiesAlive = 0;
     private float minForce = 40;
     private float maxForce = 80;

@@ -85,7 +85,7 @@ public class Menu {
                     freezeMouse = rotation;
                     selected = play;
                     doingEffect = true;
-                    world.difficulty.spawn(world.globe, world.blobManager);
+                    world.difficulty.maxEnemiesAlive++;
                     return;
                 }
                 temp = true;
