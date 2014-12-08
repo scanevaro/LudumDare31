@@ -15,6 +15,7 @@ import com.deeep.jam.input.Assets;
 public class Menu {
     public World world;
     public boolean show = true;
+    public boolean showHighscores = false;
     BitmapFont bitmapFont;
     MenuOption menuOption;
     private float menuEffect = 0;
@@ -128,7 +129,9 @@ public class Menu {
                 else if (selected == about) {
                     Gdx.net.openURI("http://deeepgames.com/about");
                 } else if (selected == quite) {
-
+                    Gdx.app.exit();
+                } else if (selected == highScores) {
+                    showHighscores = true;
                 }
             }
             if (doingEffect) {
