@@ -194,7 +194,6 @@ public class World {
     }
 
     public void update(float deltaT) {
-        System.out.println(blobManager.blobs.size() + " : " + difficulty.maxEnemiesAlive);
         switch (state) {
             case PLAYING:
                 space.update(deltaT);
@@ -332,6 +331,8 @@ public class World {
                 sR.circle(circle.x, circle.y, circle.radius - i);
             }
         }
+        sR.end();
+        sR.begin(ShapeRenderer.ShapeType.Filled);
         blobManager.draw();
         sR.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);

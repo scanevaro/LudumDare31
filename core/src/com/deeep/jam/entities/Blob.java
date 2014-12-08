@@ -32,8 +32,11 @@ public class Blob extends Entity {
     }
 
     public void draw () {
-        sR.setColor(color);
-        sR.circle(x, y, 5F);
+        for(int i = 0; i<5; i++){
+            color.a = 1f-i/5f;
+            sR.setColor(color);
+            sR.circle(x, y, i);
+        }
     }
 
 
