@@ -260,7 +260,7 @@ public class World {
                         }
                     }
                 }
-                powerBlobManager.update(deltaT);
+                powerBlobManager.update(deltaT, this);
                 if (damageTimer >= 1000)
                     gameOver();
 

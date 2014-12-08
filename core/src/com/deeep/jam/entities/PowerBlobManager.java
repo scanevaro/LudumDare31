@@ -3,6 +3,7 @@ package com.deeep.jam.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.deeep.jam.World;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class PowerBlobManager {
         random = new Random();
     }
 
-    public void update(float deltaT){
+    public void update(float deltaT, World world){
         ListIterator iT = powerBlobs.listIterator();
         ArrayList<PowerBlob> removeBlobs= new ArrayList<PowerBlob>();
         while (iT.hasNext()){
@@ -34,18 +35,16 @@ public class PowerBlobManager {
             }
         }
         powerBlobs.removeAll(removeBlobs);
-        if(powerTimer > 5){
+        if(powerTimer > 8){
             powerTimer = 0;
-            spawnPowerBlob();
+            spawnPowerBlob(world);
         }else{
             powerTimer +=deltaT;
-            //System.out.println(powerTimer);
         }
     }
 
-    private void spawnPowerBlob() {
-        //System.out.println("Spawned");
-        powerBlobs.add(new PowerBlob());
+    private void spawnPowerBlob(World world) {
+        if(world.difficulty.maxEnemiesAlive > 0) powerBlobs.add(new PowerBlob());
     }
 
     public void draw(SpriteBatch spriteBatch){
