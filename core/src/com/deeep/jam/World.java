@@ -266,6 +266,12 @@ public class World {
                     gameOver();
 
                 difficulty.spawn(globe, blobManager);
+
+                /** HighScores open*/
+                if (menu.showHighscores && Gdx.input.justTouched()) {
+                    menu.showHighscores = false;
+                    instantiate();
+                }
                 break;
             case GAMEOVER:
                 stage.act();
@@ -282,6 +288,9 @@ public class World {
         /** Prepare game over gamesOverText */
         resetText();
         prepareDrop();
+
+        Settings.addScore(difficulty.score);
+        Settings.save();
     }
 
     public void draw(SpriteBatch batch) {
@@ -358,6 +367,17 @@ public class World {
             explosionOverlay.draw(batch);
         }
         menu.draw(batch);
+
+        if (menu.showHighscores) {
+            bitmapFont.setScale(1);
+            int tempY = 350;
+            int tempX = 1;
+            for (int i = 0; i < Settings.highscores.length; i++) {
+                bitmapFont.draw(batch, tempX + ") " + Settings.highscores[i], 10, tempY);
+                tempY -= 50;
+                tempX++;
+            }
+        }
 
         batch.end();
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.deeep.jam.Settings;
 import com.deeep.jam.input.Assets;
 
 /**
@@ -19,6 +20,7 @@ public class Core extends AbstractGame {
      */
     @Override
     public void create() {
+        Settings.load();
         Assets.getAssets().load();
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
