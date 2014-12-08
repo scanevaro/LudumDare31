@@ -78,19 +78,6 @@ public class Globe extends Entity {
                 invincible = false;
             }
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            setAngleFacing(getAngleFacing()+ Gdx.graphics.getDeltaTime() * 5);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            setAngleFacing(getAngleFacing()- Gdx.graphics.getDeltaTime() * 5);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            globeImage.clear();
-            Random random = new Random();
-            for (int i = 0, l = random.nextInt(4) + 2; i < l; i++) {
-                globeImage.addRegion(randomColour());
-            }
-        }
         if(frozen){
             freezeTimer+=Gdx.graphics.getDeltaTime();
             if(freezeTimer>=2){

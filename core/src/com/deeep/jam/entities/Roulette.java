@@ -99,10 +99,6 @@ public class Roulette {
                 shown[4] = temp;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            newSession();
-        }
-
         for (int i = 0; i < 5; i++) {
             color.r = 1f;
             color.b = 1f;
