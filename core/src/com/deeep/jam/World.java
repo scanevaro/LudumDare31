@@ -203,11 +203,7 @@ public class World {
         System.out.println("State: " + state + " enemies alive: " + blobManager.blobs.size());
         switch (state) {
             case PLAYING:
-                //backgroundRotation = -globe.getAngleFacing();
-                //space.setRotation((float) Math.toDegrees(backgroundRotation));
                 space.update(deltaT);
-                //background.setRotation((float) Math.toDegrees(backgroundRotation));
-                // Gdx.input.setCursorImage(getRotatedPixmap(Assets.getAssets().getKappaPixmap(), (float) Math.toDegrees(getMouseAngle()) + 180F), 16, 16);
                 globe.update(deltaT);
                 blobManager.update(deltaT);
                 ArrayList<Circle> remove = new ArrayList<Circle>();

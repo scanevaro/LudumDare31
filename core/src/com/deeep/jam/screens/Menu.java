@@ -99,6 +99,7 @@ public class Menu {
                     selected = quite;
                     doingEffect = true;
                 }
+                temp = true;
                 for (Letter letter : highScores) {
                     if (letter.redTimer > 0) {
                         temp = false;
@@ -109,6 +110,7 @@ public class Menu {
                     selected = highScores;
                     doingEffect = true;
                 }
+                temp = true;
                 for (Letter letter : about) {
                     if (letter.redTimer > 0) {
                         temp = false;
