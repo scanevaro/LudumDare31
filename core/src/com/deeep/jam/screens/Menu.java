@@ -122,7 +122,13 @@ public class Menu {
 
             }
             if (menuEffect >= 512) {
+                if(selected == play)
                 show = true;
+                else if (selected == about){
+
+                }else if (selected == quite){
+
+                }
             }
             if (doingEffect) {
                 menuEffect += (Gdx.graphics.getDeltaTime() * 256);
